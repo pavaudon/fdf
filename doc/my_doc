@@ -1,0 +1,47 @@
+http://42toolkit.wikia.com/wiki/42_Survival_Toolkit
+//OUVRIR UNE FENETRE//
+
+#include <unistd.h>
+#include <mlx.h>
+
+int main (int ac, char **av)
+{
+    void *mlx;
+    void *win;
+
+    mlx = mlx_init();
+    win = mlx_new_window(mlx, 420, 420, "42");
+    sleep(5);
+    return(0);
+}
+
+//DESSINER UN RECTANGLE PLEIN//
+int main (int ac, char **av)
+{
+   void *mlx;
+   void *win;
+   int x;
+   int y;
+
+   mlx = mlx_init();
+   win = mlx_new_window(mlx, 420, 420, "42");
+   sleep(2);
+   y = 100;
+   while (y < 200)
+   {
+       x = 100;
+       while (x < 200)
+       {
+           mlx_pixel_put(mlx, win, x, y, 0xFF0000);
+           usleep(500);
+           x++;
+       }
+       y++;
+   }
+   sleep(5);
+   return(0);
+}
+
+
+//COMPILER//
+gcc test.c -o test -L/usr/X11/lib -lmlx -lXext -lx11
