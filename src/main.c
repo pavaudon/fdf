@@ -32,18 +32,34 @@ int		ft_esc(int key)
 	return (0);
 }
 
+void		ft_init_list(t_data *data)
+{
+	data->prev = NULL;
+	data->next = NULL;
+	data->z = 0;
+	data->x = 0;
+	data->y = 0;
+}
+
 int		main(int argc, char **argv)
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	t_data	*data;
 
+	if (!(data = (*t_data)ft_memalloc(t_data)))
+		return (0);
+	ft_init_list(data);
 	if (argc == 2)
 	{
 		//if (is_good_file(argv[1]))
+		//else ft_putstr("bad file\n");
 		//if (fd = open(path/av[1], O_RDONLY))
+		//ft_parser(fd, data);
 		ft_putstr(argv[1]);
 		mlx_ptr = mlx_init();
 		win_ptr = mlx_new_window(mlx_ptr, 500, 500, argv[1]);
+		//ft_tracer here?
 		mlx_key_hook(win_ptr, ft_esc, (void*)0);
 		mlx_loop(mlx_ptr);
 	}
