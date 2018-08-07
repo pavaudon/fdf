@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:27:44 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/12 19:27:45 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/16 15:32:35 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/16 15:33:34 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_isspace(int c)
 {
-	return ((c >= '\t' && c <= '\r') || c == ' ' ? 1 : 0);
+	if (c == ' ' || c == '\n' || c == '\t')
+		return (1);
+	return (0);
 }

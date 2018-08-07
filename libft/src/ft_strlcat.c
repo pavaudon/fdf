@@ -3,29 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:39:32 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/12 19:39:33 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/10 16:24:58 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/14 17:17:11 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t	index;
-	size_t	check;
+	size_t	i;
+	size_t	len;
 
-	index = 0;
-	check = ft_strlen(dst);
-	if (size < check)
-		return (size + ft_strlen(src));
-	while (src[index] && check + index + 1 < size)
+	i = 0;
+	if (size < ft_strlen(dest))
+		return (ft_strlen(src) + size);
+	while (dest[i] && i < size)
+		i++;
+	len = i;
+	while (src[i - len] && i < size - 1)
 	{
-		dst[check + index] = src[index];
-		index++;
+		dest[i] = src[i - len];
+		i++;
 	}
-	dst[check + index] = '\0';
-	return (check + ft_strlen((char *)src));
+	if (len < size)
+		dest[i] = '\0';
+	return (len + ft_strlen(src));
 }

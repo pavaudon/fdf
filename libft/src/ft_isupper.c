@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:27:52 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/12 19:27:55 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/16 15:30:42 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/16 15:32:12 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_isupper(int c)
 {
-	return (c >= 'A' && c <= 'Z' ? 1 : 0);
+	if (c >= 65 && c <= 90)
+		return (1);
+	return (0);
 }

@@ -3,38 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <lalicornede42@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/10 11:55:55 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/16 19:16:57 by tcassier         ###   ########.fr       */
+/*   Created: 2018/01/18 18:20:17 by pavaudon          #+#    #+#             */
+/*   Updated: 2018/01/18 18:20:18 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_itoa_base(int n, int base)
+static int		sign(long *nb)
 {
-	int		len;
-	char	*str;
-
-	if (n == 0)
-		return (ft_strdup("0"));
-	len = ft_nbrlen_base(n, base);
-	if (!(str = ft_strnew(len)))
-		return (NULL);
-	if (n < 0)
+	if (*nb < 0)
 	{
-		str[0] = '-';
-		n = -n;
+		*nb = -(*nb);
+		return (1);
 	}
-	str[len--] = '\0';
-	while (n > 0)
+	return (0);
+}
+
+char			*ft_itoa_base(int n, int base)
+{
+	char	*str;
+	int		len;
+	long	nb;
+
+	nb = n;
+	len = ft_nb_len(nb, base);
+	if (!(str = (char*)ft_memalloc(sizeof(char) * len)))
+		return (NULL);
+	if (sign(&nb))
+		str[0] = '-';
+	while (len--)
 	{
-		if (n % base < 10)
-			str[len--] = n % base + '0';
+		if ((nb % base) >= 10)
+			str[len] = (nb % base) - 10 + 'A';
 		else
-			str[len--] = n % base - 10 + 'a';
-		n /= base;
+			str[len] = nb % base + '0';
+		nb /= base;
 	}
 	return (str);
 }

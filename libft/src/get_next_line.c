@@ -3,116 +3,111 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <lalicornede42@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:42:52 by tcassier          #+#    #+#             */
-/*   Updated: 2018/02/21 19:29:45 by tcassier         ###   ########.fr       */
+/*   Created: 2018/01/09 16:44:50 by pavaudon          #+#    #+#             */
+/*   Updated: 2018/01/11 17:58:27 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int			gnl_free_bis(char **line, char **rest, int check)
+static char		*ft_domagic(char *s1, char *s2, int n)
 {
-	if (!check)
-	{
-		if (line && *line)
-			ft_strdel(line);
-		ft_strdel(rest);
-	}
-	return (check == 0 ? -1 : 1);
+	char	*str;
+
+	if (!(str = ft_strnew(ft_strlen(s1) + n)))
+		return (NULL);
+	ft_strcpy(str, s1);
+	ft_strncat(str, s2, n);
+	ft_strdel(&s1);
+	return (str);
 }
 
-static size_t		rest_instance(char *rest, char **line)
+static int		check_rest(t_list *file, char **line)
 {
-	size_t			index;
-	char			*tmp;
+	char	*tmp;
+	int		cpt;
 
-	index = -1;
+	cpt = -1;
 	*line = NULL;
-	if (rest)
+	if (!file->content)
+		return (0);
+	while (((char*)(file->content))[++cpt])
 	{
-		while (rest[++index])
+		if (((char*)(file->content))[cpt] == '\n')
 		{
-			if (rest[index] == '\n')
-			{
-				if (!(*line = ft_strndup(rest, index)))
-					return (0);
-				tmp = rest;
-				if (!(rest = ft_strdup(rest + index + 1)))
-					return (0);
-				free(tmp);
-				return (1);
-			}
+			*line = ft_strndup((char*)file->content, cpt);
+			if (!(tmp = ft_strsub((char*)file->content, cpt + 1,
+			ft_strlen((char*)file->content) - cpt)))
+				return (-1);
+			ft_memdel(&(file->content));
+			file->content = (void*)tmp;
+			return (1);
 		}
-		*line = rest;
-		rest = NULL;
 	}
-	return (2);
+	return (0);
 }
 
-static size_t		create_line(char *buffer, char **line, size_t index)
+static int		get_line(t_list *file, char **line)
 {
-	char			*tmp;
-	char			*buff_copy;
+	char	buffer[BUFF_SIZE + 1];
+	int		ret;
+	int		check;
 
-	if (!(buff_copy = ft_strndup(buffer, index)))
-		return (0);
-	if (*line)
-	{
-		tmp = *line;
-		if (!(*line = ft_strjoin(tmp, buff_copy)))
-			return (0);
-		free(tmp);
-		free(buff_copy);
-	}
+	if ((check = check_rest(file, line)))
+		return (check);
+	if ((ret = read(file->content_size, buffer, BUFF_SIZE)) <= 0)
+		return (ret);
+	buffer[ret] = '\0';
+	if (!file->content)
+		file->content = (char*)ft_strndup(buffer, ret);
 	else
-		*line = buff_copy;
-	return (1);
+		file->content = (char*)ft_domagic(file->content, buffer, ret);
+	if (!file->content)
+		return (-1);
+	if ((check = check_rest(file, line)))
+		return (check);
+	return (get_line(file, line));
 }
 
-static size_t		get_line(char *buffer, char *rest, char **line)
+static t_list	*check_fd(t_list **begin_list, size_t fd)
 {
-	size_t			index;
-	int				ret;
+	t_list		*tmp;
 
-	index = 0;
-	ret = 2;
-	while (buffer[index] && buffer[index] != '\n')
-		index++;
-	if (buffer[index] == '\n')
+	tmp = *begin_list;
+	while (tmp)
 	{
-		if (!(rest = ft_strdup(buffer + index + 1)))
-			return (0);
-		ret = 1;
+		if (tmp->content_size == fd)
+			return (tmp);
+		tmp = tmp->next;
 	}
-	if (!(create_line(buffer, line, index)))
-		return (0);
-	return (ret);
+	if (!(tmp = ft_lstnew(NULL, 0)))
+		return (NULL);
+	tmp->content_size = fd;
+	if (!(*begin_list))
+		*begin_list = tmp;
+	else
+		ft_lstadd_back(*begin_list, tmp);
+	return (tmp);
 }
 
-int					get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
-	static char		*rest = NULL;
-	char			buffer[BUFF_SIZE + 1];
-	int				check;
+	static t_list	*begin_list = NULL;
+	t_list			*file;
+	int				result;
 
-	if ((!line || fd < 0) || !(check = rest_instance(rest, line)))
-		return (gnl_free_bis(line, &rest, 0));
-	if (check == 1)
-		return (1);
-	while ((check = read(fd, buffer, BUFF_SIZE)) > 0)
-	{
-		buffer[check] = '\0';
-		if (!(check = get_line(buffer, rest, line)) || check == 1)
-			return (gnl_free_bis(line, &rest, check));
-	}
-	if (*line && *line[0] != '\0')
-		return (1);
-	else if (check == 0)
-	{
-		ft_strdel(line);
+	if ((fd < 0 || !line) || !(file = check_fd(&begin_list, (size_t)fd)))
+		return (-1);
+	result = get_line(file, line);
+	if (!result && file->content && !((char*)file->content)[0])
 		return (0);
+	else if (!result && file->content)
+	{
+		*line = (char*)file->content;
+		file->content = NULL;
+		result = 1;
 	}
-	return (gnl_free_bis(line, &rest, 0));
+	return (result);
 }

@@ -3,40 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:28:06 by tcassier          #+#    #+#             */
-/*   Updated: 2018/02/15 18:05:28 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/10 15:44:32 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/15 15:10:07 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_itoa(int n)
+static int		sign(int *n)
 {
-	int		length;
-	int		tmp_n;
-	int		sign;
-	char	*str;
+	if (*n < 0)
+	{
+		*n = -(*n);
+		return (1);
+	}
+	return (0);
+}
 
-	length = 1;
-	sign = 1;
-	tmp_n = n;
-	while (tmp_n /= 10)
-		length++;
-	if (n < 0)
-	{
-		sign = -1;
-		length++;
-	}
-	if (!(str = ft_strnew(length)))
+char			*ft_itoa(int n)
+{
+	char	*str;
+	int		len;
+
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	len = ft_nb_len(n, 10);
+	if (!(str = ft_strnew(len)))
 		return (NULL);
-	while (length--)
-	{
-		str[length] = n % 10 * sign + '0';
-		n /= 10;
-	}
-	if (sign == -1)
+	if (sign(&n))
 		str[0] = '-';
+	while (len--)
+	{
+		str[len] = n % 10 + 48;
+		n = n / 10;
+	}
 	return (str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:42:07 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/12 19:42:08 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/08 17:11:06 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/14 13:59:27 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,23 @@
 
 char	*ft_strstr(const char *haystack, const char *needle)
 {
-	int		idx_hay;
-	int		idx_nee;
+	int i;
+	int j;
 
-	idx_hay = 0;
-	idx_nee = 0;
-	if (!(needle[idx_nee]))
+	i = 0;
+	j = 0;
+	if (!(needle[i]))
 		return ((char*)haystack);
-	while (haystack[idx_hay])
+	while (haystack[j])
 	{
-		while (haystack[idx_hay + idx_nee] == needle[idx_nee])
+		while (haystack[i + j] == needle[i])
 		{
-			idx_nee++;
-			if (!(needle[idx_nee]))
-				return ((char*)haystack + idx_hay);
+			i++;
+			if (!(needle[i]))
+				return ((char*)haystack + j);
 		}
-		idx_nee = 0;
-		idx_hay++;
+		i = 0;
+		j++;
 	}
 	return (NULL);
 }

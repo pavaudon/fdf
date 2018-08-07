@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_islower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:27:05 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/12 19:27:07 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/16 15:26:04 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/16 15:29:44 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_islower(int c)
 {
-	return (c >= 'a' && c <= 'z' ? 1 : 0);
+	if (c >= 97 && c <= 122)
+		return (1);
+	return (0);
 }

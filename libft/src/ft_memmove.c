@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:34:56 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/12 19:34:57 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/09 14:48:49 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/15 14:20:24 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char	*src_tmp;
-	unsigned char	*dst_tmp;
+	unsigned char	*tmp_src;
+	unsigned char	*tmp_dst;
 
-	src_tmp = (unsigned char*)src;
-	dst_tmp = (unsigned char*)dst;
+	tmp_src = (unsigned char*)src;
+	tmp_dst = (unsigned char*)dst;
 	if (!len)
 		return (dst);
 	if (dst > src)
 	{
 		while (len--)
-			dst_tmp[len] = src_tmp[len];
+			tmp_dst[len] = tmp_src[len];
 	}
 	else
 		ft_memcpy(dst, src, len);

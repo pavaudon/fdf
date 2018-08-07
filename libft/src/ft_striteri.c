@@ -3,18 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:38:39 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/12 19:38:40 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/08 15:37:19 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/16 14:46:15 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void				ft_striteri(char *s, void (*f)(unsigned int, char*))
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	unsigned int	index;
+	unsigned int i;
 
-	index = -1;
-	while (s[++index])
-		f(index, s + index);
+	i = 0;
+	if (s && f)
+	{
+		while (s[i])
+		{
+			(*f)(i, &s[i]);
+			i++;
+		}
+	}
 }

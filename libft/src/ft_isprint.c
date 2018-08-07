@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tcassier <tcassier@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/12 19:27:36 by tcassier          #+#    #+#             */
-/*   Updated: 2018/01/12 19:27:37 by tcassier         ###   ########.fr       */
+/*   Created: 2017/11/08 14:26:45 by pavaudon          #+#    #+#             */
+/*   Updated: 2017/11/14 17:08:42 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_isprint(int c)
 {
-	return (c >= ' ' && c <= '~' ? 1 : 0);
+	if (c >= 32 && c <= 126)
+		return (1);
+	return (0);
 }
