@@ -16,6 +16,9 @@
 #include "mlx.h"
 #include "libft.h"
 
+# define SIZE_X 250
+# define SIZE_Y 250
+
 typedef struct		s_point //chaque maillon == un point a tracer
 {
 	int				z;
@@ -34,6 +37,10 @@ typedef struct		s_data
 	void	*mlx_ptr;
 	void	*win_ptr;
 	void	*img_ptr;
+	int 	bpp;
+	int 	sl;
+	int 	ed;
+	char 	*data_img;
 }					t_data;
 
 #endif
