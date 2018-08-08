@@ -16,14 +16,24 @@
 #include "mlx.h"
 #include "libft.h"
 
-typedef struct		s_data		//chaque maillon == un point a tracer
+typedef struct		s_point //chaque maillon == un point a tracer
 {
-	//int color;
-	int				z;	//== value in parser
+	int				z;
 	int				x;
 	int				y;
-	struct s_data	*next;
-	struct s_data	*prev;
+	//int			color;
+	struct s_point	*next;
+	struct s_point	*prev;
+}					t_point;
+
+typedef struct		s_data
+{
+	t_point	*point;
+	size_t	x_max;
+	size_t	y_max;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img_ptr;
 }					t_data;
 
 #endif

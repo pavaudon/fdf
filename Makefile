@@ -34,7 +34,7 @@ all:			$(NAME_1)
 
 
 $(NAME_1):		$(OBJ_DIR_1) $(OBJS_1)
-		#		@make -C libft/
+				@make -C libft/
 				@$(CC) $(CFLAGS) $(OBJS_1) -o $(NAME_1) -L./libft -lft
 				@echo "fdf is made"
 
@@ -49,7 +49,7 @@ $(OBJ_DIR_1):
 clean:
 				@rm -rf $(OBJS_1)
 				@rm -rf $(OBJ_DIR_1)
-		#		@make clean -C libft
+				@make clean -C libft
 
 
 fclean:			clean
