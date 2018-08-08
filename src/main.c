@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-
+/*
 int		is_good_file(char *str)
 {
 	int end;
@@ -25,7 +25,7 @@ int		is_good_file(char *str)
 		//checker fin == .fdf
 	return (1);
 }
-
+*/
 int		ft_esc(int key)
 {
 	if (key == 53)
@@ -43,7 +43,7 @@ int		main(int argc, char **argv)
 {
 	t_data	*data;
 
-	if (!(data = (t_data)ft_memalloc(sizeof(t_data))))
+	if (!(data = (t_data*)ft_memalloc(sizeof(t_data))))
 		return (0);
 	if (argc == 2)
 	{
@@ -54,10 +54,10 @@ int		main(int argc, char **argv)
 		//ft_parser(fd, data);
 		ft_putstr(argv[1]);
 		data->mlx_ptr = mlx_init();
-		data->win_ptr = mlx_new_window(mlx_ptr, 500, 500, argv[1]);
+		data->win_ptr = mlx_new_window(data->mlx_ptr, 500, 500, argv[1]);
 		//ft_tracer here?
-		mlx_key_hook(win_ptr, ft_esc, (void*)0);
-		mlx_loop(mlx_ptr);
+		mlx_key_hook(data->win_ptr, ft_esc, (void*)0);
+		mlx_loop(data->mlx_ptr);
 	}
 	ft_putstr("no file\n");
 	return (0);
