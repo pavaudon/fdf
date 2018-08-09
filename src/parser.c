@@ -5,37 +5,51 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pavaudon <lalicornede42@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/07 18:30:56 by pavaudon          #+#    #+#             */
-/*   Updated: 2018/08/07 18:30:57 by pavaudon         ###   ########.fr       */
+/*   Created: 2018/08/09 12:10:53 by pavaudon          #+#    #+#             */
+/*   Updated: 2018/08/09 12:11:05 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void		ft_init_point(t_point *point)
+void		ft_y_max(t_data *data)
 {
-	point->prev = NULL;
-	point->next = NULL;
-	point->z = 0;
-	point->x = 0;
-	point->y = 0;
+	int		y;
+	char	*line;
+
+	y = 0;
+	//ft_simple_printf("FIRST\n");
+	while (get_next_line(data->fd_1, &line))
+	{
+	//	ft_simple_printf("LINE : '%s'\n", line);
+		y++;
+	}
+	data->y_max = y;
+	//ft_simple_printf("\n\n");
+	data->fd_1 = close(data->fd_1) == -1;
 }
 
-int		ft_addbackdata(t_point *point, int z, int x, int y)
+int		ft_read(t_data *data)
 {
-	t_point	*tmp;
-	t_point	*new;
+	int		y;
+	char	*line;
 
-	if (!(new = (t_point*)ft_memalloc(sizeof(t_point))))
+	y = 0;
+	ft_y_max(data);
+	if (!(data->tab = (int**)ft_memalloc(sizeof(int*) * y)))
 		return (0);
-	new->z = z;
-	new->x = x;
-	new->y = y;
-	new->next = NULL;
-	tmp = point;
-	while (tmp->next)
-		tmp = tmp->next;
-	new->prev = tmp;
+	if (data->fd_2 > 0)
+	{
+		y = -1;
+		while (get_next_line(data->fd_2, &line))
+		{
+			//ft_simple_printf("LINE : '%s'\n", line);
+			if (y <= (data->y_max - 1) && !(ft_parser_line(line, data, ++y)))
+				return (0);
+		}
+	}
+	else
+		return (0);
 	return (1);
 }
 
@@ -49,44 +63,43 @@ int		ft_strtablen(char **tab)
 	return (i);
 }
 
-int		ft_parser(int fd, t_data *data)
+int		ft_is_nb(char *str)
 {
-	char	*line;
-	char	**tmp;
-	int		y;
-	t_point	*point;
+	int i;
 
-	y = 0;
-	line = NULL;
-	if (!(t_point*)ft_memalloc(sizeof(t_point)))
-		return (0);
-	while (get_next_line(fd, *line))
+	i = 0;
+	while (str[i])
 	{
-		tmp = ft_strsplit(line);
-		ft_fill_data_line(data, tmp, y);
-		free(tmp);
-		y++;
-	}
-	data->y_max = y;
-	return (1);
-}
-
-void	ft_fill_data_line(t_data *data, char **line, int y)
-{
-	int x;
-	int value;
-
-	x = -1;
-	while (line[++x])
-	{
-		if (value = ft_atoi(tmp[x]))
+		if (ft_isdigit(str[i]) || (str[i] == '-' && i == 0))
 		{
-			if (value != 0)
-				ft_addbackdata(data->point, value, x, y));
+			i++;
+			while (str[i] && (ft_isdigit(str[i])))
+				i++;
 		}
 		else
 			return (0);
 	}
-	if (y == 0)
-		data->x_max = x;
+	return (1);
+}
+
+int		ft_parser_line(char *line, t_data *data, int y)
+{
+	int x;
+	char **tmp;
+
+	x = -1;
+	if (!(tmp = ft_strsplit(line, ' ')))
+		return (0);
+	data->x_max = (!y) ? ft_strtablen(tmp) : data->x_max;
+	if (!(data->tab[y] = (int*)ft_memalloc(sizeof(int) * data->x_max)))
+		return (0);
+	while (++x <= data->x_max - 1)
+	{
+		if (!(ft_is_nb(tmp[x]) || !ft_atoi(tmp[x])))
+			return (0);
+		data->tab[y][x] = ft_atoi(tmp[x]);
+		ft_simple_printf("tab[%d][%d] = '%d'\n", y, x, data->tab[y][x]);
+	}
+	ft_simple_printf("GOOD PARSER LINE\n");
+	return (1);
 }

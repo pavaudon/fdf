@@ -14,26 +14,23 @@
 
 void		ft_new_image(t_data *data)
 {
-	int		x;
-	int		y;
-	t_list	*tmp;
+	int	x;
+	int y;
 
 	y = -1;
-	tmp = data->list;
 	data->img_ptr = mlx_new_image(data->mlx_ptr, data->x_max, data->y_max);
+	data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl, &data->ed);
 	while (++y < data->y_max)
 	{
 		x = -1;
 		while (++x < data->x_max)
 		{
-			while (tmp->next)
-			{
-				if (tmp->y == y && tmp->x == x)
-					machin = 25250; //couleur random 98|2|34
-				else
-					machin = 174762; //couleur random 42|42|42
-				tmp = tmp->next;
-			}
+			if (data->tab[y][x] != 0)
+				*(unsigned int*)(data->data_img + (x * (data->bpp * 5)) +
+				((y - data->tab[y][x]) * data->sl)) = 0x007D76;			//test bpp * 5
+			else
+				*(unsigned int*)(data->data_img + (x * (data->bpp * 5)) +
+				(y * data->sl)) = 0xE92476;								//test bpp *5
 		}
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
