@@ -89,14 +89,25 @@ int		main(int argc, char **argv)
 		((data->fd_2 = open(argv[1], O_CLOEXEC)) > 0) && ft_read(data))
 		{
 			data->file = argv[1];
+			write(1, "a\n", 2);
 			data->mlx_ptr = mlx_init();
-			data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, argv[1]);
+			write(1, "b\n", 2);
+			data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, "tamere");
+			write(1, "c\n", 2);
 			ft_new_image(data);
+			write(1, "d\n", 2);
 			mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
+			write(1, "e\n", 2);
 			mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
+			write(1, "f\n", 2);
 			mlx_key_hook(data->win_ptr, ft_esc, 0);
+			write(1, "g\n", 2);
 			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, 0);
+			write(1, "h\n", 2);
 			mlx_loop(data->mlx_ptr);
+			write(1, "i\n", 2);
+			free(data->tab);
+			write(1, "j\n", 2);
 		}
 		else
 			ft_simple_printf("bad file : '%s'\n", argv[1]);

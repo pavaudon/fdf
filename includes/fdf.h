@@ -13,9 +13,9 @@
 #ifndef FDF_H
 # define FDF_H
 
-#include "mlx.h"
-#include "libft.h"
-#include <fcntl.h>
+# include "mlx.h"
+# include "libft.h"
+# include <fcntl.h>
 
 /*
 typedef struct		s_point //chaque maillon == un point a tracer
