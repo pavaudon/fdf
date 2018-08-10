@@ -89,7 +89,7 @@ int		main(int argc, char **argv)
 			data->file = argv[1];
 			data->mlx_ptr = mlx_init();
 			data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, argv[1]);
-			//ft_new_image(data);
+			ft_new_image(data);
 			mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
 			mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
 			mlx_key_hook(data->win_ptr, ft_esc, 0);

@@ -18,7 +18,7 @@ SRC_DIR_1	=	./src/
 SRCS_1		=	$(addprefix $(SRC_DIR_1),$(SRC_1))
 SRC_1		=	main.c\
 				parser.c\
-	#			ft_point.c\
+				ft_point.c\
 	#			ft_tracer.c
 
 OBJ_DIR_1	=	./obj/
@@ -32,6 +32,7 @@ INCS		=	$(INC) $(INCLIB)
 CC			=	gcc -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -g
 
 CFLAGS		=	-Wextra -Wall -I$(INC) -I$(INCLIB) -I /usr/local/include
+#-fsanitize=address -g
 
 all:			$(NAME_1)
 
