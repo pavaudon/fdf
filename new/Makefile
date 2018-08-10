@@ -18,8 +18,8 @@ SRC_DIR_1	=	./src/
 SRCS_1		=	$(addprefix $(SRC_DIR_1),$(SRC_1))
 SRC_1		=	main.c\
 				parser.c\
-				ft_point.c\
-				ft_tracer.c
+	#			ft_point.c\
+	#			ft_tracer.c
 
 OBJ_DIR_1	=	./obj/
 OBJS_1		=	$(addprefix $(OBJ_DIR_1),$(OBJ_1))
