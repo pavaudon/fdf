@@ -25,12 +25,12 @@ void		ft_y_max(t_data *data)
 		y++;
 	}
 	ft_simple_printf("\n\n");
-	data->y_max = y - 1;
+	data->y_max = y;
 	free(line);
 	data->fd_1 = close(data->fd_1);
 }
 
-int		ft_read(t_data *data)
+int		ft_file_read(t_data *data)
 {
 	int		y;
 	char	*line;
@@ -108,12 +108,12 @@ int		ft_parser_line(char *line, t_data *data, int y)
 		return (0);
 	//exit(1);
 	data->x_max = (!y) ? ft_strtablen(tmp) : data->x_max;
-	ft_simple_printf("result tablen : %d\n", data->x_max);
+	//ft_simple_printf("result tablen : %d\n", data->x_max);
 	if (!(data->tab[y] = (int*)ft_memalloc(sizeof(int) * data->x_max)))
 		return (0);
+	//ft_simple_printf("y[%d] : %s\n", y, line);
 	while (++x < data->x_max)
 	{
-		ft_simple_printf("xxx : %d\n", x);
 		if (!(ft_is_nb(tmp[x]) || !ft_atoi(tmp[x])))
 			return (0);
 		data->tab[y][x] = ft_atoi(tmp[x]);

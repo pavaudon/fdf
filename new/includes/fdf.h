@@ -46,7 +46,7 @@ typedef struct		s_data
 	char 	*data_img;
 }					t_data;
 
-int			ft_read(t_data *data);
+int			ft_file_read(t_data *data);
 void		ft_new_image(t_data *data);
 int			ft_parser_line(char *line, t_data *data, int y);
 
