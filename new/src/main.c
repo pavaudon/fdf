@@ -90,24 +90,16 @@ int		main(int argc, char **argv)
 			data->mlx_ptr = mlx_init();
 			data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, argv[1]);
 			ft_new_image(data);
-			printf("after new image\n");
 			mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
-			printf("1111\n");
 			mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
-			printf("222222\n");
 			mlx_key_hook(data->win_ptr, ft_esc, data);
-			printf("333333\n");
 			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, 0);
-			printf("444444\n");
 			mlx_loop(data->mlx_ptr);
-			printf("55555\n");
 		}
 		else
 			ft_simple_printf("bad file : '%s'\n", argv[1]);
-		printf("66666\n");
 	}
 	else
 		ft_simple_printf("no file\n");
-	printf("77777\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: pavaudon <lalicornede42@gmail.com>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/17 14:25:18 by pavaudon          #+#    #+#              #
-#    Updated: 2018/05/17 14:25:19 by pavaudon         ###   ########.fr        #
+#    Updated: 2018/08/17 15:26:15 by pavaudon         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS_1		=	$(addprefix $(SRC_DIR_1),$(SRC_1))
 SRC_1		=	main.c\
 				parser.c\
 				ft_point.c\
-	#			ft_tracer.c
+#				ft_tracer.c
 
 OBJ_DIR_1	=	./obj/
 OBJS_1		=	$(addprefix $(OBJ_DIR_1),$(OBJ_1))
@@ -29,10 +29,10 @@ INC			=	./includes/
 INCLIB		=	./libft/includes/
 INCS		=	$(INC) $(INCLIB)
 
-CC			=	gcc -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -g
+CC			=	gcc -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -g3 -fsanitize=address
+#-fsanitize=address -g
 
 CFLAGS		=	-Wextra -Wall -I$(INC) -I$(INCLIB) -I /usr/local/include
-#-fsanitize=address -g
 
 all:			$(NAME_1)
 

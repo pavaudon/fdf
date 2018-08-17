@@ -30,6 +30,7 @@ INCLIB		=	./libft/includes/
 INCS		=	$(INC) $(INCLIB)
 
 CC			=	gcc -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -g
+#-fsanitize=address -g
 
 CFLAGS		=	-Wextra -Wall -I$(INC) -I$(INCLIB) -I /usr/local/include
 

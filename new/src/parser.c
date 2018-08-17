@@ -26,6 +26,7 @@ void		ft_y_max(t_data *data)
 	}
 	ft_simple_printf("\n\n");
 	data->y_max = y;
+	ft_simple_printf("ymax : '%d'\n", data->y_max);
 	free(line);
 	data->fd_1 = close(data->fd_1);
 }
@@ -52,6 +53,7 @@ int		ft_file_read(t_data *data)
 	}
 	else
 		return (0);
+	//data->tab[y] = NULL;
 	ft_simple_printf("GOOD PARSER FILE\n");
 	return (1);
 }
@@ -107,6 +109,7 @@ int		ft_parser_line(char *line, t_data *data, int y)
 	if (!(tmp = ft_strsplit(line, ' ')))
 		return (0);
 	//exit(1);
+	//printf("TMP ADDR ; '%p'\n", tmp);
 	data->x_max = (!y) ? ft_strtablen(tmp) : data->x_max;
 	//ft_simple_printf("result tablen : %d\n", data->x_max);
 	if (!(data->tab[y] = (int*)ft_memalloc(sizeof(int) * data->x_max)))
@@ -120,6 +123,6 @@ int		ft_parser_line(char *line, t_data *data, int y)
 		//ft_simple_printf("tab[%d][%d] = '%d'\n", y, x, data->tab[y][x]);
 	}
 	ft_freetab(tmp);
-	ft_simple_printf("GOOD PARSER LINE\n");
+	//ft_simple_printf("GOOD PARSER LINE\n");
 	return (1);
 }
