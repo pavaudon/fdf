@@ -18,15 +18,9 @@ void		ft_y_max(t_data *data)
 	char	*line;
 
 	y = 0;
-	//ft_simple_printf("READ fd_1 : %d\n", data->fd_1);
 	while (get_next_line(data->fd_1, &line))
-	{
-		//ft_simple_printf("%s\n", line);
 		y++;
-	}
-	ft_simple_printf("\n\n");
 	data->y_max = y;
-	ft_simple_printf("ymax : '%d'\n", data->y_max);
 	free(line);
 	data->fd_1 = close(data->fd_1);
 }
@@ -40,12 +34,12 @@ int		ft_file_read(t_data *data)
 	ft_y_max(data);
 	if (!(data->tab = (int**)ft_memalloc(sizeof(int*) * data->y_max)))
 		return (0);
+	if (!(data->x_max = (int*)ft_memalloc(sizeof(int) * data->y_max)))
+		return (0);
 	if (data->fd_2 > 0)
 	{
-		//ft_simple_printf("READ fd_2 : %d\n", data->fd_2);
 		while (get_next_line(data->fd_2, &line))
 		{
-			//ft_simple_printf("%s\n", line);
 			if (y < (data->y_max) && !(ft_parser_line(line, data, ++y)))
 				return (0);
 		}
@@ -53,8 +47,6 @@ int		ft_file_read(t_data *data)
 	}
 	else
 		return (0);
-	//data->tab[y] = NULL;
-	ft_simple_printf("GOOD PARSER FILE\n");
 	return (1);
 }
 
@@ -108,21 +100,22 @@ int		ft_parser_line(char *line, t_data *data, int y)
 	x = -1;
 	if (!(tmp = ft_strsplit(line, ' ')))
 		return (0);
-	//exit(1);
-	//printf("TMP ADDR ; '%p'\n", tmp);
-	data->x_max = (!y) ? ft_strtablen(tmp) : data->x_max;
-	//ft_simple_printf("result tablen : %d\n", data->x_max);
-	if (!(data->tab[y] = (int*)ft_memalloc(sizeof(int) * data->x_max)))
+	data->x_max[y] = ft_strtablen(tmp);
+	data->x_allmax = (!y || data->x_allmax < data->x_max[y]) ? data->x_max[y] :
+	data->x_allmax;
+	if (!(data->tab[y] = (int*)ft_memalloc(sizeof(int) * data->x_max[y])))
 		return (0);
-	//ft_simple_printf("y[%d] : %s\n", y, line);
-	while (++x < data->x_max)
+	while (++x < data->x_max[y])
 	{
 		if (!(ft_is_nb(tmp[x]) || !ft_atoi(tmp[x])))
+		{
+			free(data->x_max);
+			free(data->tab);
 			return (0);
+		}
 		data->tab[y][x] = ft_atoi(tmp[x]);
 		//ft_simple_printf("tab[%d][%d] = '%d'\n", y, x, data->tab[y][x]);
 	}
 	ft_freetab(tmp);
-	//ft_simple_printf("GOOD PARSER LINE\n");
 	return (1);
 }

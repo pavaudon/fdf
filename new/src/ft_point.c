@@ -29,6 +29,7 @@ static void	ft_fillit(unsigned int *pixels, const unsigned int w,
 	}
 }
 */
+
 void		ft_new_image(t_data *data)
 {
 	int	x;
@@ -38,18 +39,19 @@ void		ft_new_image(t_data *data)
 	data->img_ptr = mlx_new_image(data->mlx_ptr, 1000, 1000);
 	data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
 	&data->ed);
-	ft_simple_printf("x_max : '%d'\ny_max : %d\n", data->x_max, data->y_max);
-	ft_simple_printf("bpp : '%d'\nsl : '%d'\n", data->bpp, data->sl);
+	//ft_simple_printf("x_max : '%d'\ny_max : %d\n", data->x_max, data->y_max);
+	//ft_simple_printf("bpp : '%d'\nsl : '%d'\n", data->bpp, data->sl);
 	y = data->y_max;
 	while (y--)
 	{
 		//ft_simple_printf("x : %d\ty : %d\tz : %d\n", x, y, data->tab[y][x]);
-		x = data->x_max;
+		x = data->x_max[y];
 		while (x--)
 		{
 			//ft_simple_printf("x : %d\ty : %d\tz : %d\n", x, y, data->tab[y][x]);
-			((unsigned int *)data->data_img)[x + y * (1000)] =
-				(data->tab[y][x] == 0) ? 0x00FF00 : 0xff0000;
+			((unsigned int *)data->data_img)[x + (y * 1000)] =
+			(data->tab[y][x] == 0) ? 0x00FF00 :
+			(0xff0000 + (0x0000A8 * data->tab[y][x]));
 			//if (data->tab[y][x] == 0)
 			//	((unsigned int *)data->data_img)[x + y * (data->x_max - 1)] = 0x00FF00;
 			//else
@@ -68,7 +70,5 @@ void		ft_new_image(t_data *data)
 			 */
 		}
 	}
-	printf("before image to window\n");
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
-	printf("AFTER image to window\n");
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 50, 50);
 }

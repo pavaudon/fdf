@@ -32,7 +32,8 @@ typedef struct		s_data
 {
 	//t_point	*point;
 	int		**tab;
-	int		x_max;
+	int		*x_max;
+	int		x_allmax;
 	int		y_max;
 	char	*file;
 	int		fd_1;

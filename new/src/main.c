@@ -34,10 +34,7 @@ int		is_good_file(char *str)
 			fdf--;
 		}
 		else
-		{
-			ft_simple_printf("bad file\n");
 			return (0);
-		}
 	}
 	return (1);
 }
@@ -50,14 +47,18 @@ int		ft_esc(int key, t_data *data)
 		//mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 		exit(0);
 	}
+	else if (key == 37 && data->data_img)
+	{
+		ft_bzero(data->data_img, 1000 * 1000 * 4);
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 50, 50);
+		printf("Empty window\n");
+		//tracer_line(data);
+		//free(data->mlx_ptr);
+		//free(data->img_ptr);
+		//exit(0);
+	}
 	else
 		ft_simple_printf("key is : %d \n", key);
-	return (0);
-}
-
-int my_press_key(int key)
-{
-	ft_simple_printf("result press = %d \n", key);
 	return (0);
 }
 
@@ -90,7 +91,7 @@ int		main(int argc, char **argv)
 			data->mlx_ptr = mlx_init();
 			data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, argv[1]);
 			ft_new_image(data);
-			mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
+			//mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
 			mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
 			mlx_key_hook(data->win_ptr, ft_esc, data);
 			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, 0);
