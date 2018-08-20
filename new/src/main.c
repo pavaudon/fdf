@@ -44,30 +44,40 @@ int		ft_esc(int key, t_data *data)
 	if (key == 53)
 	{
 		ft_simple_printf("esc\n");
-		//mlx_destroy_image(data->mlx_ptr, data->img_ptr);
 		exit(0);
 	}
-	else if (key == 37 && data->data_img)
+	else if (key == 37 && data->data_img)		//l
 	{
-		ft_bzero(data->data_img, 1000 * 1000 * 4);
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 50, 50);
+		ft_bzero(data->data_img, data->y_max * data->x_allmax * 4);
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		data->img_ptr, 50, 50);
 		printf("Empty window\n");
 		//tracer_line(data);
 		//free(data->mlx_ptr);
 		//free(data->img_ptr);
 		//exit(0);
 	}
+	else if (key == 35)		//p
+	{
+		if (data->data_img)
+		{
+			ft_bzero(data->data_img, data->y_max * data->x_allmax * 4);
+			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+			data->img_ptr, 50, 50);
+		}
+		ft_new_image(data);
+	}
 	else
 		ft_simple_printf("key is : %d \n", key);
 	return (0);
 }
-
+/*
 int my_remove_key(int key)
 {
 	ft_simple_printf("result remove = %d \n", key);
 	return (0);
 }
-
+*/
 int windows_exit()
 {
 	ft_simple_printf("Bybye\n");
@@ -90,9 +100,9 @@ int		main(int argc, char **argv)
 			data->file = argv[1];
 			data->mlx_ptr = mlx_init();
 			data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, argv[1]);
-			ft_new_image(data);
+			put_text(data);
 			//mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
-			mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
+			//mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
 			mlx_key_hook(data->win_ptr, ft_esc, data);
 			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, 0);
 			mlx_loop(data->mlx_ptr);

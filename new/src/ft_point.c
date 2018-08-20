@@ -30,13 +30,27 @@ static void	ft_fillit(unsigned int *pixels, const unsigned int w,
 }
 */
 
+void		put_text(t_data *data)
+{
+	if (!data->img_ptr)
+	{
+		data->img_ptr = mlx_new_image(data->mlx_ptr, data->x_allmax, data->y_max);
+		data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
+		&data->ed);
+	}
+	//mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 900, 0x23a790, "U to unicorn\n");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 925, 0xFFC9C9, "P to draw points\n");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 950, 0xFFC9C9, "L to draw lines\n");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 975, 0xFFC9C9, "ESC or CROSS to quit\n");
+}
+
 void		ft_new_image(t_data *data)
 {
 	int	x;
 	int y;
 
 	y = -1;
-	data->img_ptr = mlx_new_image(data->mlx_ptr, 1000, 1000);
+	data->img_ptr = mlx_new_image(data->mlx_ptr, data->x_allmax, data->y_max);
 	data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
 	&data->ed);
 	//ft_simple_printf("x_max : '%d'\ny_max : %d\n", data->x_max, data->y_max);
@@ -49,7 +63,7 @@ void		ft_new_image(t_data *data)
 		while (x--)
 		{
 			//ft_simple_printf("x : %d\ty : %d\tz : %d\n", x, y, data->tab[y][x]);
-			((unsigned int *)data->data_img)[x + (y * 1000)] =
+			((unsigned int *)data->data_img)[x + (y * data->x_allmax)] =
 			(data->tab[y][x] == 0) ? 0x00FF00 :
 			(0xff0000 + (0x0000A8 * data->tab[y][x]));
 			//if (data->tab[y][x] == 0)
