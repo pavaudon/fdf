@@ -34,6 +34,8 @@ typedef struct		s_data
 	int		**tab;
 	int		*x_max;
 	int		x_allmax;
+	int		nb_x;
+	int		nb_y;
 	int		y_max;
 	char	*file;
 	int		fd_1;
@@ -45,6 +47,7 @@ typedef struct		s_data
 	int 	sl;
 	int 	ed;
 	char 	*data_img;
+	int		zoom;
 }					t_data;
 
 int			ft_file_read(t_data *data);

@@ -51,7 +51,7 @@ int		ft_esc(int key, t_data *data)
 		ft_bzero(data->data_img, data->y_max * data->x_allmax * 4);
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
 		data->img_ptr, 50, 50);
-		printf("Empty window\n");
+		ft_simple_printf("Empty line\n");
 		//tracer_line(data);
 		//free(data->mlx_ptr);
 		//free(data->img_ptr);
@@ -59,13 +59,27 @@ int		ft_esc(int key, t_data *data)
 	}
 	else if (key == 35)		//p
 	{
-		if (data->data_img)
-		{
-			ft_bzero(data->data_img, data->y_max * data->x_allmax * 4);
-			mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->img_ptr, 50, 50);
-		}
+		ft_bzero(data->data_img, data->y_max * data->x_allmax * 4);
+		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+		data->img_ptr, 50, 50);
+		ft_simple_printf("Empty points\n");
 		ft_new_image(data);
+	}
+	else if (key == 126) //haut
+	{
+		printf("BEFORE ZOOM++ :\ndata->x_allmax '%d'\ndata->y_max : '%d'\n", data->x_allmax, data->y_max);
+		data->zoom += ((data->nb_x * data->zoom++) < (1000 - 50) && (data->nb_y * data->zoom++) < (1000 - 50)) ? 1 : 0;		//mieux gerer le max a incrementer
+		data->x_allmax = data->nb_x * data->zoom;
+		data->y_max = data->nb_y * data->zoom;
+		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\n", data->x_allmax, data->y_max);
+	}
+	else if (key == 125) // bas
+	{
+		printf("BEFORE ZOOM-- :\ndata->x_allmax '%d'\ndata->y_max : '%d'\n", data->x_allmax, data->y_max);
+		data->zoom -= (data->zoom > 1) ? 1 : 0;
+		data->x_allmax = data->nb_x * data->zoom;
+		data->y_max = data->nb_y * data->zoom;
+		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\n", data->x_allmax, data->y_max);
 	}
 	else
 		ft_simple_printf("key is : %d \n", key);
@@ -91,6 +105,7 @@ int		main(int argc, char **argv)
 
 	if (!(data = (t_data*)ft_memalloc(sizeof(t_data))))
 		return (0);
+	data->zoom = 1;
 	if (argc == 2)
 	{
 		if ((is_good_file(argv[1]) &&

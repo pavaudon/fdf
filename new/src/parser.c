@@ -44,6 +44,8 @@ int		ft_file_read(t_data *data)
 				return (0);
 		}
 		free(line);
+		data->nb_y = data->y_max;
+		data->nb_x = data->x_allmax;
 	}
 	else
 		return (0);
