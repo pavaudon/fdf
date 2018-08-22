@@ -39,7 +39,7 @@ int		is_good_file(char *str)
 	return (1);
 }
 
-int		ft_esc(int key, t_data *data)
+int		ft_key(int key, t_data *data)
 {
 	if (key == 53)
 	{
@@ -67,19 +67,19 @@ int		ft_esc(int key, t_data *data)
 	}
 	else if (key == 126) //haut
 	{
-		printf("BEFORE ZOOM++ :\ndata->x_allmax '%d'\ndata->y_max : '%d'\n", data->x_allmax, data->y_max);
-		data->zoom += ((data->nb_x * data->zoom++) < (1000 - 50) && (data->nb_y * data->zoom++) < (1000 - 50)) ? 1 : 0;		//mieux gerer le max a incrementer
+		printf("BEFORE ZOOM++ :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
+		data->zoom += ((data->nb_x * (data->zoom + 1)) < 950 && (data->nb_y * (data->zoom + 1)) < 950) ? 1 : 0;		//mieux gerer le max a incrementer
 		data->x_allmax = data->nb_x * data->zoom;
 		data->y_max = data->nb_y * data->zoom;
-		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\n", data->x_allmax, data->y_max);
+		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
 	}
 	else if (key == 125) // bas
 	{
-		printf("BEFORE ZOOM-- :\ndata->x_allmax '%d'\ndata->y_max : '%d'\n", data->x_allmax, data->y_max);
+		printf("BEFORE ZOOM-- :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
 		data->zoom -= (data->zoom > 1) ? 1 : 0;
 		data->x_allmax = data->nb_x * data->zoom;
 		data->y_max = data->nb_y * data->zoom;
-		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\n", data->x_allmax, data->y_max);
+		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
 	}
 	else
 		ft_simple_printf("key is : %d \n", key);
@@ -118,7 +118,7 @@ int		main(int argc, char **argv)
 			put_text(data);
 			//mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
 			//mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
-			mlx_key_hook(data->win_ptr, ft_esc, data);
+			mlx_key_hook(data->win_ptr, ft_key, data);
 			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, 0);
 			mlx_loop(data->mlx_ptr);
 		}

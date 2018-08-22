@@ -54,7 +54,7 @@ void		ft_new_image(t_data *data)
 	data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
 	&data->ed);
 	y = data->nb_y;
-	printf("y : '%d' nb_y : '%d'\n", data->y_max, data->nb_y);
+	//printf("y : '%d' nb_y : '%d'\n", data->y_max, data->nb_y);
 	while (y--)
 	{
 		x = data->x_max[y];
