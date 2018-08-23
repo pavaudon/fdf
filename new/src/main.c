@@ -39,6 +39,28 @@ int		is_good_file(char *str)
 	return (1);
 }
 
+void	ft_zoom(t_data *data, int zoom)
+{
+	if (zoom) //haut
+	{
+		printf("BEFORE ZOOM++ :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
+		data->zoom++;
+		data->x_allmax = data->nb_x * data->zoom;
+		data->y_max = data->nb_y * data->zoom;
+		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
+	}
+	else // bas
+	{
+		//voir comment effacer le surplus quand on a zoom++ puis zoom--
+		printf("BEFORE ZOOM-- :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		data->zoom -= (data->zoom > 1) ? 1 : 0;
+		data->x_allmax = data->nb_x * data->zoom;
+		data->y_max = data->nb_y * data->zoom;
+		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
+	}
+}
+
 int		ft_key(int key, t_data *data)
 {
 	if (key == 53)
@@ -48,38 +70,21 @@ int		ft_key(int key, t_data *data)
 	}
 	else if (key == 37 && data->data_img)		//l
 	{
-		ft_bzero(data->data_img, data->y_max * data->x_allmax * 4);
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-		data->img_ptr, 50, 50);
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		ft_simple_printf("Empty line\n");
 		//tracer_line(data);
-		//free(data->mlx_ptr);
-		//free(data->img_ptr);
-		//exit(0);
 	}
 	else if (key == 35)		//p
 	{
-		ft_bzero(data->data_img, data->y_max * data->x_allmax * 4);
-		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-		data->img_ptr, 50, 50);
 		ft_simple_printf("Empty points\n");
 		ft_new_image(data);
 	}
 	else if (key == 126) //haut
-	{
-		printf("BEFORE ZOOM++ :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
-		data->zoom += ((data->nb_x * (data->zoom + 1)) < 950 && (data->nb_y * (data->zoom + 1)) < 950) ? 1 : 0;		//mieux gerer le max a incrementer
-		data->x_allmax = data->nb_x * data->zoom;
-		data->y_max = data->nb_y * data->zoom;
-		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
-	}
+		ft_zoom(data, 1);
 	else if (key == 125) // bas
 	{
-		printf("BEFORE ZOOM-- :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
-		data->zoom -= (data->zoom > 1) ? 1 : 0;
-		data->x_allmax = data->nb_x * data->zoom;
-		data->y_max = data->nb_y * data->zoom;
-		printf("AFTER :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
+		//voir comment effacer le surplus quand on a zoom++ puis zoom--
+		ft_zoom(data, 0);
 	}
 	else
 		ft_simple_printf("key is : %d \n", key);
@@ -99,13 +104,24 @@ int windows_exit()
 	return (0);
 }
 
+void	ft_init_data(t_data *data)
+{
+	data->zoom = 1;
+	data->tab = NULL;
+	data->file = NULL;
+	data->mlx_ptr = NULL;
+	data->win_ptr = NULL;
+	data->img_ptr = NULL;
+	data->data_img = NULL;
+}
+
 int		main(int argc, char **argv)
 {
 	t_data *data;
 
 	if (!(data = (t_data*)ft_memalloc(sizeof(t_data))))
 		return (0);
-	data->zoom = 1;
+	ft_init_data(data);
 	if (argc == 2)
 	{
 		if ((is_good_file(argv[1]) &&
