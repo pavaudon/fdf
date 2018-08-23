@@ -28,6 +28,20 @@ typedef struct		s_point //chaque maillon == un point a tracer
 	struct s_point	*prev;
 }					t_point;
 */
+
+typedef struct		s_bres
+{
+	int		xa;
+	int		xb;
+	int		ya;
+	int		yb;
+	int		dx;
+	int		dy;
+	int		xincr;
+	int		yincr;
+	float	error;
+}					t_bres;
+
 typedef struct		s_data
 {
 	//t_point	*point;
