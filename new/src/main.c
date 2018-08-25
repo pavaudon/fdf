@@ -68,14 +68,16 @@ int		ft_key(int key, t_data *data)
 	}
 	else if (key == 37 && data->data_img)		//l
 	{
-		//mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		ft_simple_printf("Empty line\n");
+		put_text(data);
 		tracer_line(data);
 	}
 	else if (key == 35)		//p
 	{
-		//mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		ft_simple_printf("Empty points\n");
+		put_text(data);
 		ft_new_image(data);
 	}
 	else if (key == 126) //haut

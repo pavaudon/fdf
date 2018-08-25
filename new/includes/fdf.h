@@ -71,5 +71,6 @@ void		ft_new_image(t_data *data);
 int			ft_parser_line(char *line, t_data *data, int y);
 void		put_text(t_data *data);
 void		tracer_line(t_data *data);
+void		put_text(t_data *data);
 
 #endif

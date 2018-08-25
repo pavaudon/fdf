@@ -11,24 +11,6 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
-/*
-static void	ft_fillit(unsigned int *pixels, const unsigned int w,
-	const unsigned int h, const unsigned int color)
-{
-	unsigned int		x;
-	unsigned int		y;
-
-	x = 0;
-	while (x < w)
-	{
-		y = 0;
-		while (y < h)
-		{
-			pixels[x + y * w] = color;
-		}
-	}
-}
-*/
 
 void		put_text(t_data *data)
 {

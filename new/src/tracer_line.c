@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-void print(t_data *data, int x, int y)
+void print_pixel(t_data *data, int x, int y)
 {
 	if (x >= 0 && x < data->x_allmax && y >= 0 && y < data->y_max)
 			((unsigned int *)data->data_img)[x + y] = data->color;
@@ -35,9 +35,7 @@ void	line_down(t_data *data, int x, int y)
 			data->bres->error -= data->bres->dx;
 			y += data->bres->yincr;
 		}
-		data->color = (data->tab[y][x] == 0) ? 0x00FF00 : (0xff0000 + (0x0000A8 * data->tab[y][x]));
-		print(data, (x), ((y) * data->x_allmax));
-		// ((unsigned int *)data->data_img)[(x) + ((y) * data->x_allmax)] = (data->tab[y][x] == 0) ? 0x00FF00 : (0xff0000 + (0x0000A8 * data->tab[y][x]));
+		 ((unsigned int *)data->data_img)[(x) + ((y) * data->x_allmax)] = (data->tab[y][x] == 0) ? 0x00FF00 : (0xff0000 + (0x0000A8 * data->tab[y][x]));
 	}
 }
 
@@ -53,10 +51,7 @@ void	line_up(t_data *data, int x, int y)
 			data->bres->error -= data->bres->dy;
 			x += data->bres->xincr;
 		}
-		data->color = (data->tab[y][x] == 0) ? 0x00FF00 : (0xff0000 + (0x0000A8 * data->tab[y][x]));
-		print(data, (x), ((y) * data->x_allmax));
-		//printf("x : '%d'	y : '%d'\n", x, y);
-	//	((unsigned int *)data->data_img)[(x) + ((y) * data->x_allmax)] = (data->tab[y][x] == 0) ? 0x00FF00 :(0xff0000 + (0x0000A8 * data->tab[y][x]));
+		((unsigned int *)data->data_img)[(x) + ((y) * data->x_allmax)] = (data->tab[y][x] == 0) ? 0x00FF00 :(0xff0000 + (0x0000A8 * data->tab[y][x]));
 	}
 }
 
@@ -80,9 +75,7 @@ void	ft_bres(t_data *data, int x1, int y1, int x2, int y2)  // Bresenham
 		line_down(data, x, y);
 	else
 		line_up(data, x, y);
-	data->color = (data->tab[y][x] == 0) ? 0x00FF00 : (0xff0000 + (0x0000A8 * data->tab[y][x]));
-	print(data, (x1), ((y1) * data->x_allmax));
-	// ((unsigned int *)data->data_img)[(x1) + ((y1) * data->x_allmax)] = (data->tab[y][x] == 0) ? 0x00FF00 : (0xff0000 + (0x0000A8 * data->tab[y][x]));  gautier qui fait de la merde
+	 ((unsigned int *)data->data_img)[(x1) + ((y1) * data->x_allmax)] = (data->tab[y][x] == 0) ? 0x00FF00 : (0xff0000 + (0x0000A8 * data->tab[y][x]));
 	//((unsigned int *)data->data_img)[(x2) + ((y2) * data->x_allmax)] = (data->tab[y][x] == 0) ? 0x00FF00 : (0xff0000 + (0x0000A8 * data->tab[y][x]));; normalement c'est gerer avec l'algo a voir avec tous les cas
 }
 
