@@ -68,13 +68,13 @@ int		ft_key(int key, t_data *data)
 	}
 	else if (key == 37 && data->data_img)		//l
 	{
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		//mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		ft_simple_printf("Empty line\n");
 		tracer_line(data);
 	}
 	else if (key == 35)		//p
 	{
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
+		//mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		ft_simple_printf("Empty points\n");
 		ft_new_image(data);
 	}

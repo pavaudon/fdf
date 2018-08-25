@@ -34,7 +34,7 @@ void		put_text(t_data *data)
 {
 	if (!data->img_ptr)
 	{
-		data->img_ptr = mlx_new_image(data->mlx_ptr, data->x_allmax, data->y_max);
+		data->img_ptr = mlx_new_image(data->mlx_ptr, 1000, 1000);
 		data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
 		&data->ed);
 	}

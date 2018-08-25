@@ -51,6 +51,7 @@ typedef struct		s_data
 	int			x_allmax;
 	int			nb_x;
 	int			nb_y;
+	int 		color;
 	int			y_max;
 	char		*file;
 	int			fd_1;
