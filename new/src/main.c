@@ -51,9 +51,7 @@ void	ft_zoom(t_data *data, int zoom)
 	}
 	else // bas
 	{
-		//voir comment effacer le surplus quand on a zoom++ puis zoom--
 		printf("BEFORE ZOOM-- :\ndata->x_allmax '%d'\ndata->y_max : '%d'\nzoom : '%d'\n", data->x_allmax, data->y_max, data->zoom);
-		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		data->zoom -= (data->zoom > 1) ? 1 : 0;
 		data->x_allmax = data->nb_x * data->zoom;
 		data->y_max = data->nb_y * data->zoom;
@@ -72,20 +70,18 @@ int		ft_key(int key, t_data *data)
 	{
 		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		ft_simple_printf("Empty line\n");
-		//tracer_line(data);
+		tracer_line(data);
 	}
 	else if (key == 35)		//p
 	{
+		mlx_clear_window(data->mlx_ptr, data->win_ptr);
 		ft_simple_printf("Empty points\n");
 		ft_new_image(data);
 	}
 	else if (key == 126) //haut
 		ft_zoom(data, 1);
 	else if (key == 125) // bas
-	{
-		//voir comment effacer le surplus quand on a zoom++ puis zoom--
 		ft_zoom(data, 0);
-	}
 	else
 		ft_simple_printf("key is : %d \n", key);
 	return (0);
@@ -104,7 +100,7 @@ int windows_exit()
 	return (0);
 }
 
-void	ft_init_data(t_data *data)
+int	ft_init_data(t_data *data)
 {
 	data->zoom = 1;
 	data->tab = NULL;
@@ -113,15 +109,17 @@ void	ft_init_data(t_data *data)
 	data->win_ptr = NULL;
 	data->img_ptr = NULL;
 	data->data_img = NULL;
+	if (!(data->bres = (t_bres*)ft_memalloc(sizeof(t_bres))))
+		return (0);
+	return (1);
 }
 
 int		main(int argc, char **argv)
 {
 	t_data *data;
 
-	if (!(data = (t_data*)ft_memalloc(sizeof(t_data))))
+	if (!(data = (t_data*)ft_memalloc(sizeof(t_data))) || !ft_init_data(data))
 		return (0);
-	ft_init_data(data);
 	if (argc == 2)
 	{
 		if ((is_good_file(argv[1]) &&

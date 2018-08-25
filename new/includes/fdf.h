@@ -45,28 +45,30 @@ typedef struct		s_bres
 typedef struct		s_data
 {
 	//t_point	*point;
-	int		**tab;
-	int		*x_max;
-	int		x_allmax;
-	int		nb_x;
-	int		nb_y;
-	int		y_max;
-	char	*file;
-	int		fd_1;
-	int		fd_2;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-	int 	bpp;
-	int 	sl;
-	int 	ed;
-	char 	*data_img;
-	int		zoom;
+	t_bres	*bres;
+	int			**tab;
+	int			*x_max;
+	int			x_allmax;
+	int			nb_x;
+	int			nb_y;
+	int			y_max;
+	char		*file;
+	int			fd_1;
+	int			fd_2;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img_ptr;
+	int			bpp;
+	int			sl;
+	int			ed;
+	char		*data_img;
+	int			zoom;
 }					t_data;
 
 int			ft_file_read(t_data *data);
 void		ft_new_image(t_data *data);
 int			ft_parser_line(char *line, t_data *data, int y);
 void		put_text(t_data *data);
+void		tracer_line(t_data *data);
 
 #endif

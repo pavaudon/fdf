@@ -12,18 +12,18 @@
 
 .PHONY:			all clean fclean re norme
 
-NAME_1		=	fdf
+NAME		=	fdf
 
-SRC_DIR_1	=	./src/
-SRCS_1		=	$(addprefix $(SRC_DIR_1),$(SRC_1))
-SRC_1		=	main.c\
+SRC_DIR	=	./src/
+SRCS		=	$(addprefix $(SRC_DIR),$(SRC))
+SRC		=	main.c\
 				parser.c\
 				ft_point.c\
-#				ft_tracer.c
+				tracer_line.c
 
-OBJ_DIR_1	=	./obj/
-OBJS_1		=	$(addprefix $(OBJ_DIR_1),$(OBJ_1))
-OBJ_1		=	$(SRC_1:.c=.o)
+OBJ_DIR	=	./obj/
+OBJS		=	$(addprefix $(OBJ_DIR),$(OBJ))
+OBJ		=	$(SRC:.c=.o)
 
 INC			=	./includes/
 INCLIB		=	./libft/includes/
@@ -33,30 +33,30 @@ CC			=	gcc -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -g3 -fsa
 
 CFLAGS		=	-Wextra -Wall -I$(INC) -I$(INCLIB) -I /usr/local/include
 
-all:			$(NAME_1)
+all:			$(NAME)
 
 
-$(NAME_1):		$(OBJ_DIR_1) $(OBJS_1)
+$(NAME):		$(OBJ_DIR) $(OBJS)
 				@make -C libft/
-				@$(CC) $(CFLAGS) $(OBJS_1) -o $(NAME_1) -L./libft -lft
+				@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L./libft -lft
 				@echo "fdf is made"
 
-$(OBJ_DIR_1)%.o:	$(SRC_DIR_1)%.c $(INCS)
+$(OBJ_DIR)%.o:	$(SRC_DIR)%.c $(INCS)
 				@$(CC) $(CFLAGS) -c $< -o $@
 
 
-$(OBJ_DIR_1):
-				@mkdir -p $(OBJ_DIR_1)
+$(OBJ_DIR):
+				@mkdir -p $(OBJ_DIR)
 
 
 clean:
-				@rm -rf $(OBJS_1)
-				@rm -rf $(OBJ_DIR_1)
+				@rm -rf $(OBJS)
+				@rm -rf $(OBJ_DIR)
 				@make clean -C libft
 
 
 fclean:			clean
 				@rm -rf libft/libft.a
-				@rm -rf $(NAME_1)
+				@rm -rf $(NAME)
 
 re:			fclean all
