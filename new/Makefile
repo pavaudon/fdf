@@ -19,7 +19,7 @@ SRCS		=	$(addprefix $(SRC_DIR),$(SRC))
 SRC		=	main.c\
 				parser.c\
 				ft_point.c\
-				tracer_line.c
+				new_tracer_line.c
 
 OBJ_DIR	=	./obj/
 OBJS		=	$(addprefix $(OBJ_DIR),$(OBJ))

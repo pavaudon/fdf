@@ -129,7 +129,7 @@ int		main(int argc, char **argv)
 		(data->fd_2 = open(argv[1], O_CLOEXEC)) > 0) && ft_file_read(data))
 		{
 			data->file = argv[1];
-			data->mlx_ptr = mlx_init();
+			data->mlx_ptr = mlx_init();	
 			data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, argv[1]);
 			put_text(data);
 			//mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
