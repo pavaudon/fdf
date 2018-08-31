@@ -59,7 +59,7 @@ typedef struct		s_data
 	int			zoom;
 }					t_data;
 
-int			ft_file_read(t_data *data);
+int			ft_read_file(t_data *data);
 void		ft_new_image(t_data *data);
 int			ft_parser_line(char *line, t_data *data, int y);
 void		put_text(t_data *data);

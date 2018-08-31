@@ -25,7 +25,7 @@ void		ft_y_max(t_data *data)
 	data->fd_1 = close(data->fd_1);
 }
 
-int		ft_file_read(t_data *data)
+int		ft_read_file(t_data *data)
 {
 	int		y;
 	char	*line;

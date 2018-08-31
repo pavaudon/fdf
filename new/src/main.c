@@ -66,7 +66,7 @@ int		main(int argc, char **argv)
 	{
 		if ((is_good_file(argv[1]) &&
 		((data->fd_1 = open(argv[1], O_CLOEXEC)) > 0) &&
-		(data->fd_2 = open(argv[1], O_CLOEXEC)) > 0) && ft_file_read(data))
+		(data->fd_2 = open(argv[1], O_CLOEXEC)) > 0) && ft_read_file(data))
 		{
 			data->file = argv[1];
 			data->mlx_ptr = mlx_init();
