@@ -70,7 +70,7 @@ void	ft_bres(t_data *data, int x1, int y1, int x2, int y2)  // Bresenham
 	data->bres->dy = ft_abs(y2 - y1);
 	data->bres->xincr = (x1 < x2) ? 1 : -1;
 	data->bres->yincr = (y1 < y2) ? 1 : -1;
-	printf("POUR [X1 = '%d'][Y1 = '%d'][X2 = '%d'][Y2 = '%d']\nyincr : '%d'\tdy : '%d'\tdx : '%d'\n\n", x1, y1, x2, y2, data->bres->yincr, data->bres->dy, data->bres->dx);
+	//printf("POUR [X1 = '%d'][Y1 = '%d'][X2 = '%d'][Y2 = '%d']\nyincr : '%d'\tdy : '%d'\tdx : '%d'\n\n", x1, y1, x2, y2, data->bres->yincr, data->bres->dy, data->bres->dx);
 	if (data->bres->dx > data->bres->dy)
 		line_down(data, x, y);
 	else
@@ -88,11 +88,13 @@ void		tracer_line(t_data *data)
 	data->img_ptr = mlx_new_image(data->mlx_ptr, 1000, 1000);
 	data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
 	&data->ed);
+	printf("nb_y : %d\t", data->nb_y);
 	while (++y < data->nb_y)
 	{
 		x = -1;
 		while (++x < data->x_max[y])
 		{
+			printf("x_max : '%d'\n", data->x_max[y]);
 			if (y < data->nb_y - 1)
 				ft_bres(data, x, y - data->tab[y][x], x, (y + 1) - data->tab[y + 1][x]);
 			if (x < data->x_max[y] - 1)

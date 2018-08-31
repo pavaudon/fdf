@@ -16,7 +16,10 @@ NAME		=	fdf
 
 SRC_DIR	=	./src/
 SRCS		=	$(addprefix $(SRC_DIR),$(SRC))
-SRC		=	
+SRC		=	main.c\
+				parser.c\
+				ft_point.c\
+				new_tracer_line.c
 
 OBJ_DIR	=	./obj/
 OBJS		=	$(addprefix $(OBJ_DIR),$(OBJ))

@@ -17,6 +17,18 @@
 # include "libft.h"
 # include <fcntl.h>
 
+/*
+typedef struct		s_point //chaque maillon == un point a tracer
+{
+	int				z;
+	int				x;
+	int				y;
+	//int			color;
+	struct s_point	*next;
+	struct s_point	*prev;
+}					t_point;
+*/
+
 typedef struct		s_bres
 {
 	int		xa;
@@ -27,35 +39,30 @@ typedef struct		s_bres
 	int		dy;
 	int		xincr;
 	int		yincr;
-	double	error;
+	float	error;
 }					t_bres;
-
-typedef struct    s_mlx
-{
-  void		*mlx_ptr;
-  void		*win_ptr;
-  void		*img_ptr;
-  char		*data_img;
-}                 t_mlx;
-
-typedef struct    s_draw
-{
-  int     y_max;
-  int     *x_max;
-}                 t_draw
 
 typedef struct		s_data
 {
 	//t_point	*point;
-  t_mlx   *mlx;
 	t_bres	*bres;
 	int			**tab;
+	int			*x_max;
+	int			x_allmax;
+	int			nb_x;
+	int			nb_y;
+	int 		color;
+	int			y_max;
 	char		*file;
 	int			fd_1;
 	int			fd_2;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img_ptr;
 	int			bpp;
 	int			sl;
 	int			ed;
+	char		*data_img;
 	int			zoom;
 }					t_data;
 

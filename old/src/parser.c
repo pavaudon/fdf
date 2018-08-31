@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pavaudon <lalicornede42@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/31 16:43:40 by pavaudon          #+#    #+#             */
-/*   Updated: 2018/08/31 16:43:41 by pavaudon         ###   ########.fr       */
+/*   Created: 2018/08/09 12:10:53 by pavaudon          #+#    #+#             */
+/*   Updated: 2018/08/09 12:11:05 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int		ft_file_read(t_data *data)
 				return (0);
 		}
 		free(line);
+		data->nb_y = data->y_max;
+		data->nb_x = data->x_allmax;
 	}
 	else
 		return (0);
@@ -101,6 +103,8 @@ int		ft_parser_line(char *line, t_data *data, int y)
 	if (!(tmp = ft_strsplit(line, ' ')))
 		return (0);
 	data->x_max[y] = ft_strtablen(tmp);
+	data->x_allmax = (!y || data->x_allmax < data->x_max[y]) ? data->x_max[y] :
+	data->x_allmax;
 	if (!(data->tab[y] = (int*)ft_memalloc(sizeof(int) * data->x_max[y])))
 		return (0);
 	while (++x < data->x_max[y])
@@ -112,6 +116,7 @@ int		ft_parser_line(char *line, t_data *data, int y)
 			return (0);
 		}
 		data->tab[y][x] = ft_atoi(tmp[x]);
+		//ft_simple_printf("tab[%d][%d] = '%d'\n", y, x, data->tab[y][x]);
 	}
 	ft_freetab(tmp);
 	return (1);
