@@ -62,9 +62,11 @@ void draw_lines(t_data *data)
     while (++x < data->x_max[y])
     {
       if (y < data->y_max - 1)
-				ft_bres(data, x, y - data->tab[y][x], x, (y + 1) - data->tab[y + 1][x]);
+				//ft_bres(data, x, y - data->tab[y][x], x, (y + 1) - data->tab[y + 1][x]);
+        ft_bres(data, x, y, x, y + 1);
 			if (x < data->x_max[y] - 1)
-				ft_bres(data, x, y - data->tab[y][x], (x + 1), y - data->tab[y][x + 1]);
+				//ft_bres(data, x, y - data->tab[y][x], (x + 1), y - data->tab[y][x + 1]);
+        ft_bres(data, x, y, x + 1, y);
     }
   }
   mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 50, 50);

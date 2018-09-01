@@ -52,7 +52,8 @@ int	ft_init_data(t_data *data)
 int 	ft_init_mlx(t_data *data)
 {
 	if (!(data->mlx_ptr = mlx_init()) ||
-	!(data->win_ptr = mlx_new_window(data->mlx_ptr, COL_SIZE, LINE_SIZE, data->file)))
+	!(data->win_ptr = mlx_new_window(data->mlx_ptr, COL_SIZE,
+	LINE_SIZE, data->file)))
 		return (0);
 	return (1);
 }

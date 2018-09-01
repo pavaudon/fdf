@@ -18,7 +18,7 @@
 # include <fcntl.h>
 
 #define COL_SIZE 1000
-#define LINE_SIZE 2000
+#define LINE_SIZE 1000
 
 typedef struct		s_bres
 {
