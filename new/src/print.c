@@ -77,13 +77,13 @@ void put_background(t_data *data, int lines)
   int y;
 
   y = -1;
-  data->img_ptr = mlx_new_image(data->mlx_ptr, COL_SIZE, LINE_SIZE);
+  data->img_ptr = mlx_new_image(data->mlx_ptr, LINE_SIZE, COL_SIZE);
   data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
 	&data->ed);
-  while (++y <= LINE_SIZE)
+  while (++y < COL_SIZE)
   {
     x = -1;
-    while (++x <= COL_SIZE)
+    while (++x < LINE_SIZE)
       print_pixel(data, x, y, 0x3d3e47);
   }
   mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
