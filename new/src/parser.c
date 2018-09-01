@@ -101,6 +101,8 @@ int		ft_parser_line(char *line, t_data *data, int y)
 	if (!(tmp = ft_strsplit(line, ' ')))
 		return (0);
 	data->x_max[y] = ft_strtablen(tmp);
+	data->x_allmax = (!y || data->x_allmax < data->x_max[y]) ? data->x_max[y] :
+	data->x_allmax;
 	if (!(data->tab[y] = (int*)ft_memalloc(sizeof(int) * data->x_max[y])))
 		return (0);
 	while (++x < data->x_max[y])

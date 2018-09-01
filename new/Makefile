@@ -16,11 +16,15 @@ NAME		=	fdf
 
 SRC_DIR	=	./src/
 SRCS		=	$(addprefix $(SRC_DIR),$(SRC))
-SRC		=	
+SRC			=	main.c\
+					parser.c\
+					hook.c\
+					print.c\
+					bres.c
 
 OBJ_DIR	=	./obj/
 OBJS		=	$(addprefix $(OBJ_DIR),$(OBJ))
-OBJ		=	$(SRC:.c=.o)
+OBJ			=	$(SRC:.c=.o)
 
 INC			=	./includes/
 INCLIB		=	./libft/includes/

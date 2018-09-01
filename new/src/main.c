@@ -46,13 +46,14 @@ int	ft_init_data(t_data *data)
 	data->file = NULL;
 	if (!(data->bres = (t_bres*)ft_memalloc(sizeof(t_bres))))
 		return (0);
-  if (!(data->mlx = (t_mlx*)ft_memalloc(sizeof(t_mlx))))
-    return (0);
-  data->mlx->mlx_ptr = NULL;
-  data->mlx->win_ptr = NULL;
-  data->mlx->img_ptr = mlx_new_image(data->mlx_ptr, 1000, 1000);
-	data->mlx->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
-	&data->ed);
+	return (1);
+}
+
+int 	ft_init_mlx(t_data *data)
+{
+	if (!(data->mlx_ptr = mlx_init()) ||
+	!(data->win_ptr = mlx_new_window(data->mlx_ptr, COL_SIZE, LINE_SIZE, data->file)))
+		return (0);
 	return (1);
 }
 
@@ -69,14 +70,14 @@ int		main(int argc, char **argv)
 		(data->fd_2 = open(argv[1], O_CLOEXEC)) > 0) && ft_read_file(data))
 		{
 			data->file = argv[1];
-			data->mlx_ptr = mlx_init();
-			data->win_ptr = mlx_new_window(data->mlx_ptr, 1000, 1000, argv[1]);
-      draw_point(data);
-			//mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);
+			//data->file = file_name(argv[1]);
+			if (!ft_init_mlx(data))
+				return (0);
+			//mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);		//mettre le zoom ici
 			//mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
 			mlx_key_hook(data->win_ptr, ft_key, data);
 			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, 0);
-      put_background(data);
+      put_background(data, 0);
 			mlx_loop(data->mlx_ptr);
 		}
 		else

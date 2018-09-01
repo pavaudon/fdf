@@ -31,7 +31,6 @@ void		ft_new_image(t_data *data)
 	int	x;
 	int y;
 
-	y = -1;
 	data->img_ptr = mlx_new_image(data->mlx_ptr, data->x_allmax, data->y_max);
 	data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
 	&data->ed);
