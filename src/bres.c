@@ -33,7 +33,7 @@ void line_down(t_data *data, int x, int y)
     {
       data->bres->error -= (double)data->bres->dx;
       y += data->bres->yincr;
-      //color += (i) ? 0x5103b7 : 0;
+      color += (i) ? 0x5103b7 : 0;
     }
     print_pixel(data, x, y, color);
   }
