@@ -16,11 +16,7 @@ NAME		=	fdf
 
 SRC_DIR	=	./src/
 SRCS		=	$(addprefix $(SRC_DIR),$(SRC))
-SRC			=	main.c\
-					parser.c\
-					hook.c\
-					print.c\
-					bres.c
+SRC			= 	main.c
 
 OBJ_DIR	=	./obj/
 OBJS		=	$(addprefix $(OBJ_DIR),$(OBJ))
