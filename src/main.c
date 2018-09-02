@@ -12,6 +12,22 @@
 
 #include "fdf.h"
 
+void ft_error(char *error, char *arg)
+{
+	if (arg)
+		ft_simple_printf("BAD FILE [%s]\n", arg);
+	else
+		ft_simple_printf("%s\n", error);
+	exit(1);
+}
+
+int check_file_name(char *arg)
+{
+	if (!ft_strstr(arg, ".fdf\0"))
+		ft_error(NULL, arg);
+	return (1);
+}
+/*
 int		is_good_file(char *str)
 {
 	int		end;
@@ -38,7 +54,7 @@ int		is_good_file(char *str)
 	}
 	return (1);
 }
-
+*/
 int	ft_init_data(t_data *data)
 {
 	data->zoom = 1;
@@ -66,7 +82,7 @@ int		main(int argc, char **argv)
 		return (0);
 	if (argc == 2)
 	{
-		if ((is_good_file(argv[1]) &&
+		if ((check_file_name(argv[1]) &&
 		((data->fd_1 = open(argv[1], O_CLOEXEC)) > 0) &&
 		(data->fd_2 = open(argv[1], O_CLOEXEC)) > 0) && ft_read_file(data))
 		{
@@ -82,9 +98,9 @@ int		main(int argc, char **argv)
 			mlx_loop(data->mlx_ptr);
 		}
 		else
-			ft_simple_printf("bad file : '%s'\n", argv[1]);
+			ft_error(NULL, argv[1]);
 	}
 	else
-		ft_simple_printf("no file\n");
+		ft_error("no file\n", NULL);
 	return (0);
 }

@@ -22,9 +22,9 @@ void put_text(t_data *data)
 
 void print_pixel(t_data *data, int x, int y, int color)
 {
-	if (x >= 0 && x < 1000 && y >= 0 && y < 1000)
+	if (x >= 0 && x <= LINE_SIZE && y >= 0 && y <= LINE_SIZE)
 	 //((unsigned int *)data->data_img)[x + y] = color;
-   *(unsigned int*)(data->data_img + (x * (data->bpp >> 4)) + (y * data->sl)) = color;
+    *(unsigned int*)(data->data_img + (x * (data->bpp >> 4)) + (y * data->sl)) = color;
 }
 
 void draw_point(t_data *data)
@@ -70,23 +70,24 @@ void draw_lines(t_data *data)
   mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 50, 50);
 }
 
-
 void put_background(t_data *data, int lines)
 {
   int x;
   int y;
 
   y = -1;
-  data->img_ptr = mlx_new_image(data->mlx_ptr, LINE_SIZE, COL_SIZE);
-  data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
-	&data->ed);
+  if (!(data->img_ptr = mlx_new_image(data->mlx_ptr, LINE_SIZE, COL_SIZE)) ||
+  !(data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
+	&data->ed)))
+    ft_error("error", NULL);
+  ft_simple_printf("COL_SIZE : '%d'\t LINE_SIZE : '%d'\n", COL_SIZE, LINE_SIZE);
   while (++y < COL_SIZE)
   {
     x = -1;
     while (++x < LINE_SIZE)
       print_pixel(data, x, y, 0x3d3e47);
   }
-  mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
+  mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 10, 10);
   put_text(data);
   if (lines == 1)
     draw_lines(data);

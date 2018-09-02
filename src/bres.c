@@ -33,7 +33,7 @@ void line_down(t_data *data, int x, int y)
     {
       data->bres->error -= (double)data->bres->dx;
       y += data->bres->yincr;
-      color += (i) ? 0x5103b7 : 0;
+      //color += (i) ? 0x5103b7 : 0;
     }
     print_pixel(data, x, y, color);
   }
@@ -61,6 +61,7 @@ void line_up(t_data *data, int x, int y)
 
 void ft_bres(t_data *data, int x1, int y1, int x2, int y2)
 {
+  ft_simple_printf("x1 : '%d'\ty1 : '%d'\tx2 : '%d'\ty2 : '%d'\n", x1, y1, x2, y2);
   x1 *= data->zoom;
 	y1 *= data->zoom;
 	x2 *= data->zoom;
