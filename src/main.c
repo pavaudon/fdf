@@ -27,6 +27,25 @@ int check_file_name(char *arg)
 		ft_error(NULL, arg);
 	return (1);
 }
+
+char	*del_path_file(char *file)
+{
+	int i;
+	int len;
+
+	len = ft_strlen(file);
+	i = len;
+	ft_simple_printf("len : '%d'\n", len);
+	while (--i)
+	{
+		if (file[i] == '/')
+		{
+			ft_simple_printf("file[%d] : '%c'\ti - i : '%d'\n", i, file[i], i - i);
+			return (ft_strdup(file + (i + 1)));
+		}
+	}
+	return (ft_strdup(file));
+}
 /*
 int		is_good_file(char *str)
 {
@@ -65,8 +84,10 @@ int	ft_init_data(t_data *data)
 	return (1);
 }
 
-int 	ft_init_mlx(t_data *data)
+int 	ft_init_mlx(t_data *data, char *argv)
 {
+	if (!(data->file = del_path_file(argv)))
+		return (0);
 	if (!(data->mlx_ptr = mlx_init()) ||
 	!(data->win_ptr = mlx_new_window(data->mlx_ptr, COL_SIZE,
 	LINE_SIZE, data->file)))
@@ -86,9 +107,7 @@ int		main(int argc, char **argv)
 		((data->fd_1 = open(argv[1], O_CLOEXEC)) > 0) &&
 		(data->fd_2 = open(argv[1], O_CLOEXEC)) > 0) && ft_read_file(data))
 		{
-			data->file = argv[1];
-			//data->file = file_name(argv[1]);
-			if (!ft_init_mlx(data))
+			if (!ft_init_mlx(data, argv[1]))
 				return (0);
 			//mlx_hook(data->win_ptr, 2, (1L << 01), my_press_key, 0);		//mettre le zoom ici
 			//mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
@@ -101,6 +120,6 @@ int		main(int argc, char **argv)
 			ft_error(NULL, argv[1]);
 	}
 	else
-		ft_error("no file\n", NULL);
+		ft_error("./fdf [FILE]\n", NULL);
 	return (0);
 }

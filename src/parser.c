@@ -45,10 +45,10 @@ int		ft_read_file(t_data *data)
 		}
 		free(line);
 	}
-	close(data->fd1);
-	close(data->fd2);
 	else
 		return (0);
+	close(data->fd_1);
+	close(data->fd_2);
 	return (1);
 }
 
