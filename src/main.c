@@ -35,45 +35,14 @@ char	*del_path_file(char *file)
 
 	len = ft_strlen(file);
 	i = len;
-	ft_simple_printf("len : '%d'\n", len);
 	while (--i)
 	{
 		if (file[i] == '/')
-		{
-			ft_simple_printf("file[%d] : '%c'\ti - i : '%d'\n", i, file[i], i - i);
 			return (ft_strdup(file + (i + 1)));
-		}
 	}
 	return (ft_strdup(file));
 }
-/*
-int		is_good_file(char *str)
-{
-	int		end;
-	int		fdf;
-	char	*tmp;
 
-	fdf = 3;
-	end = 0;
-	tmp = ".fdf";
-	if (ft_strlen(str) <= 5)
-		return (0);
-	while (str[end])
-		end++;
-	end--;
-	while (fdf >= 0)
-	{
-		if (str[end] == tmp[fdf])
-		{
-			end--;
-			fdf--;
-		}
-		else
-			return (0);
-	}
-	return (1);
-}
-*/
 int	ft_init_data(t_data *data)
 {
 	data->zoom = 1;
