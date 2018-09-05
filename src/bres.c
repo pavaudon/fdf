@@ -87,9 +87,9 @@ void line_up(t_data *data, int x, int y)
 
 void set_var(t_data *data, int *x1, int *y1, int *x2, int *y2)
 {
-  *x1 += (*x1 * data->zoom);
+  *x1 = *x1 + (*x1 * data->zoom);
   *y1 += (*y1 * data->zoom);
-  *x2 += (*x2 * data->zoom);
+  *x2 = *x2 + (*x2 * data->zoom);
   *y2 += (*y2 * data->zoom);
 }
 
