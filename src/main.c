@@ -45,7 +45,7 @@ char	*del_path_file(char *file)
 
 int	ft_init_data(t_data *data)
 {
-	data->zoom = 1;
+	data->zoom = 20;
 	data->tab = NULL;
 	data->file = NULL;
 	if (!(data->bres = (t_bres*)ft_memalloc(sizeof(t_bres))))
@@ -61,6 +61,7 @@ int 	ft_init_mlx(t_data *data, char *argv)
 	!(data->win_ptr = mlx_new_window(data->mlx_ptr, COL_SIZE,
 	LINE_SIZE, data->file)))
 		return (0);
+	free(data->file);
 	return (1);
 }
 

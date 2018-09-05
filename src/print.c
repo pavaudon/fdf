@@ -26,7 +26,7 @@ void put_text(t_data *data)
 
 void print_pixel(t_data *data, int x, int y, int color)
 {
-	if (x >= 0 && x <= LINE_SIZE && y >= 0 && y <= LINE_SIZE)
+	if (x >= 0 && x < 2 * LINE_SIZE && y >= 0 && y < COL_SIZE)
 	 //((unsigned int *)data->data_img)[x + y] = color;
     *(unsigned int*)(data->data_img + (x * (data->bpp >> 4)) + (y * data->sl))
     = color;
@@ -89,13 +89,13 @@ void put_background(t_data *data, int lines)
   while (++y < COL_SIZE)
   {
     x = -1;
-    while (++x < LINE_SIZE)
+    while (++x < LINE_SIZE * 2)
       print_pixel(data, x, y, 0x3d3e47);
   }
-  mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 10, 10);
-  put_text(data);
+  mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
   if (lines == 1)
     draw_lines(data);
   else if (lines == 2)
     draw_point(data);
+  put_text(data);
 }

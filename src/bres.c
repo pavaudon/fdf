@@ -83,7 +83,6 @@ void line_up(t_data *data, int x, int y)
     }*/
     print_pixel(data, x, y, 0xe6ea07);
   }
-
 }
 
 void set_var(t_data *data, int *x1, int *y1, int *x2, int *y2)
@@ -96,8 +95,8 @@ void set_var(t_data *data, int *x1, int *y1, int *x2, int *y2)
 
 void ft_bres(t_data *data, int x1, int y1, int x2, int y2)
 {
-  ft_simple_printf("x1 : '%d'\ty1 : '%d'\tx2 : '%d'\ty2 : '%d'\n", x1, y1, x2, y2);
   set_var(data, &x1, &y1, &x2, &y2);
+  ft_simple_printf("x1 : '%d'\ty1 : '%d'\tx2 : '%d'\ty2 : '%d'\n", x1, y1, x2, y2);
   data->bres->dx = ft_abs(x2 - x1);
   data->bres->dy = ft_abs(y2 - y1);
   data->bres->xincr = (x1 < x2) ? 1 : -1;
