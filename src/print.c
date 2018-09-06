@@ -27,9 +27,8 @@ void put_text(t_data *data)
 void print_pixel(t_data *data, int x, int y, int color)
 {
 	if (x >= 0 && x < 2 * LINE_SIZE && y >= 0 && y < COL_SIZE)
-	 //((unsigned int *)data->data_img)[x + y] = color;
-    *(unsigned int*)(data->data_img + (x * (data->bpp >> 4)) + (y * data->sl))
-    = color;
+   //((unsigned int *)data->data_img)[x + y] = color;
+   *(unsigned int*)(data->data_img + (x * (data->bpp >> 4)) + (y * data->sl)) = color;
 }
 
 void draw_point(t_data *data)
@@ -67,11 +66,11 @@ void draw_lines(t_data *data)
     while (++x < data->x_max[y])
     {
       if (y < data->y_max - 1)
-        ft_bres(data, x, y - data->tab[y][x], x, (y + 1) - data->tab[y + 1][x]);
-        //ft_bres(data, (x + y), y - data->tab[y][x], (x + y + 1), (y + 1) - data->tab[y + 1][x]);    <<<< pour le decalage
+        //ft_bres(data, x, y - data->tab[y][x], x, (y + 1) - data->tab[y + 1][x]);
+        ft_bres(data, (x + y), y - data->tab[y][x], (x + y + 1), (y + 1) - data->tab[y + 1][x]);   // <<<< pour le decalage
 			if (x < data->x_max[y] - 1)
-        ft_bres(data, x, y - data->tab[y][x], (x + 1), y - data->tab[y][x + 1]);
-        //ft_bres(data, (x + y), y - data->tab[y][x], (x + y + 2), y - data->tab[y][x + 1]);          <<<< pour le decalage
+        //ft_bres(data, x, y - data->tab[y][x], (x + 1), y - data->tab[y][x + 1]);
+        ft_bres(data, (x + y), y - data->tab[y][x], (x + y + 2), y - data->tab[y][x + 1]);         // <<<< pour le decalage
     }
   }
   mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 50, 50);
@@ -87,7 +86,6 @@ void put_background(t_data *data, int lines)
   !(data->data_img = mlx_get_data_addr(data->img_ptr, &data->bpp, &data->sl,
 	&data->ed)))
     ft_error("error", NULL);
-  ft_simple_printf("COL_SIZE : '%d'\t LINE_SIZE : '%d'\n", COL_SIZE, LINE_SIZE);
   while (++y < COL_SIZE)
   {
     x = -1;
