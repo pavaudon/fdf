@@ -16,7 +16,7 @@ int  ft_abs(int value)
 {
   return ((value < 0) ? -value : value);
 }
-
+/*
 void line_down(t_data *data, int x, int y)
 {
   int i;
@@ -42,11 +42,11 @@ void line_down(t_data *data, int x, int y)
     else
       data->bres->error += inc_2;
     x += data->bres->xincr;
-    print_pixel(data, x, y, 0xe6ea07);
+    mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, 0xe6ea07);
   }
 }
+*/
 
-/*
 void line_down(t_data *data, int x, int y)
 {
   int i;
@@ -62,10 +62,11 @@ void line_down(t_data *data, int x, int y)
       data->bres->error -= (double)data->bres->dx;
       y += data->bres->yincr;
     }
-    print_pixel(data, x, y, 0xe6ea07);
+    mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, 0xe6ea07);
   }
 }
-*/
+
+/*
 void line_up(t_data *data, int x, int y)
 {
   int i;
@@ -89,11 +90,11 @@ void line_up(t_data *data, int x, int y)
     else
       data->bres->error += inc_2;
     y += data->bres->yincr;
-    print_pixel(data, x, y, 0xe6ea07);
+    mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, 0xe6ea07);
   }
 }
+*/
 
-/*
 void line_up(t_data *data, int x, int y)
 {
   int i;
@@ -109,10 +110,10 @@ void line_up(t_data *data, int x, int y)
       data->bres->error -= data->bres->dy;
       x += data->bres->xincr;
     }
-    print_pixel(data, x, y, 0xe6ea07);
+    mlx_pixel_put(data->mlx_ptr, data->win_ptr, x, y, 0xe6ea07);
   }
 }
-*/
+
 void set_var(t_data *data, int *x1, int *y1, int *x2, int *y2)
 {
   *x1 *= data->zoom;
@@ -140,5 +141,5 @@ void ft_bres(t_data *data, int x1, int y1, int x2, int y2)
     line_down(data, x1, y1);
   else
     line_up(data, x1, y1);
-  print_pixel(data, x1, y1, 0xe6ea07);
+  mlx_pixel_put(data->mlx_ptr, data->win_ptr, x1, y1, 0xe6ea07);
 }

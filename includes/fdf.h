@@ -58,7 +58,8 @@ void		tracer_line(t_data *data);
 int 		windows_exit();
 int			ft_key(int key, t_data *data);
 void 		ft_bres(t_data *data, int x1, int y1, int x2, int y2);
-void 		put_background(t_data *data, int lines);
+//void 		put_background(t_data *data, int lines);
+void 		which_draw(t_data *data, int lines);
 void 		print_pixel(t_data *data, int x, int y, int color);
 void 		ft_error(char *error, char *arg);
 

@@ -27,20 +27,20 @@ int		ft_key(int key, t_data *data)
 		exit(0);
 	}
 	else if (key == 37 && data->data_img)		//l
-		put_background(data, 1);
+		which_draw(data, 1);
 	else if (key == 35 && data->data_img)		//p
-		put_background(data, 2);
+		which_draw(data, 2);
 	else if (key == 126 || key == 69) //haut
 	{
 		data->zoom++;
 		ft_simple_printf("ZOOM++ : '%d'\n", data->zoom);
-		put_background(data, 1);
+		which_draw(data, 1);
 	}
 	else if ((key == 125 || key == 78) && data->zoom > 1) // bas
   {
 		data->zoom--;
 		ft_simple_printf("ZOOM-- : '%d'\n", data->zoom);
-		put_background(data, 1);
+		which_draw(data, 1);
 	}
 	else
 		ft_simple_printf("key is : %d \n", key);

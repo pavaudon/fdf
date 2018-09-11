@@ -83,7 +83,7 @@ int		main(int argc, char **argv)
 			//mlx_hook(data->win_ptr, 3, (1L << 01), my_remove_key, 0);
 			mlx_key_hook(data->win_ptr, ft_key, data);
 			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, 0);
-      put_background(data, 0);
+      //put_background(data, 0);
 			mlx_loop(data->mlx_ptr);
 		}
 		else
