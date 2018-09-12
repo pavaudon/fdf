@@ -14,21 +14,54 @@
 
 void put_text(t_data *data)
 {
-  mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 900, 0xFFC9C9,
+  mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 825, 0xFFC9C9,
   "L to draw lines\n");
-	mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 925, 0xFFC9C9,
-  "+ or UP to zoom+\n");
+	mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 850, 0xFFC9C9,
+  "+ (num pad) to zoom+\n");
+  mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 875, 0xFFC9C9,
+  "- (num pad) to zoom-\n");
+  mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 900, 0xFFC9C9,
+  "UP DOWN LEFT OR RIGHT to move\n");
+  mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 925, 0xFFC9C9,
+  "+ to depth+\n");
   mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 950, 0xFFC9C9,
-  "- or DOWN to zoom-\n");
+  "- to depth-\n");
 	mlx_string_put(data->mlx_ptr, data->win_ptr, 50, 975, 0xFFC9C9,
   "ESC or CROSS to quit\n");
 }
 
 void print_pixel(t_data *data, int x, int y, int color)
 {
-  if (x >= 0 && x < 2 * LINE_SIZE && y >= 0 && y < COL_SIZE)
+  if (x >= 0 && x < LINE_SIZE && y >= 0 && y < COL_SIZE)
    //((unsigned int *)data->data_img)[x + y] = color;
    *(unsigned int*)(data->data_img + (x * (data->bpp >> 4)) + (y * data->sl)) = color;
+   //if (x < 0 || x >= LINE_SIZE || y < 0 || y >= COL_SIZE)
+ 		//return ;
+   //*(int *)(data->data_img + ((x + y * COL_SIZE) * data->bpp)) = color;
+}
+
+void change_depth(t_data *data)
+{
+	int y;
+	int x;
+  int zero;
+
+	y = -1;
+  zero = 0;
+	while (++y < data->y_max)
+	{
+		x = -1;
+		while (++x < data->x_max[y])
+		{
+      if (data->tab[y][x] == 1 && data->depth == -1)
+        zero--;
+      if (data->tab[y][x] == -1 && data->depth == 1)
+        zero++;
+			if (data->tab[y][x] != 0)
+				data->tab[y][x] += data->depth + zero;
+      zero = 0;
+		}
+	}
 }
 
 void draw_point(t_data *data)
@@ -45,7 +78,7 @@ void draw_point(t_data *data)
 		{
       color = (data->tab[y][x] == 0) ? 0x00FF00 :
       (0xff0000 + (0x0000A8 * data->tab[y][x]));
-      mlx_pixel_put(data->mlx_ptr, data->win_ptr, x * data->zoom, y * data->zoom, color);
+      mlx_pixel_put(data->mlx_ptr, data->win_ptr, x * data->zoom + data->xmove, y * data->zoom + data->ymove, color);
       //print_pixel(data, x * data->zoom, y * data->zoom, color);
     /*  ((unsigned int *)data->data_img)[(x * data->zoom) + ((y * data->zoom) * data->x_allmax)] =
 			(data->tab[y][x] == 0) ? 0x00FF00 :
@@ -61,15 +94,16 @@ void draw_lines(t_data *data)
   int y;
 
   y = -1;
-  printf("y_max : '%d'\tx_max : '%d'\n", data->y_max, data->x_max[0]);
   while (++y < data->y_max)
   {
     x = -1;
     while (++x < data->x_max[y])
     {
-      if (y < data->y_max - 1)
+      if (y < data->y_max - 1 && x < data->x_max[y + 1])
+      {
         //ft_bres(data, x, y - data->tab[y][x], x, (y + 1) - data->tab[y + 1][x]);
         ft_bres(data, (x + y), y - data->tab[y][x], (x + y + 1), (y + 1) - data->tab[y + 1][x]);   // pour le decalage
+      }
 			if (x < data->x_max[y] - 1)
         //ft_bres(data, x, y - data->tab[y][x], (x + 1), y - data->tab[y][x + 1]);
         ft_bres(data, (x + y), y - data->tab[y][x], (x + y + 1), y - data->tab[y][x + 1]);         // pour le decalage
@@ -100,7 +134,9 @@ void which_draw(t_data *data, int lines)
   }
   mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
   */
-  if (lines == 1)
+  if (!lines)
+    change_depth(data);
+  if (lines < 2)
     draw_lines(data);
   else if (lines == 2)
     draw_point(data);

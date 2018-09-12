@@ -36,11 +36,12 @@ int		ft_read_file(t_data *data)
 		return (0);
 	if (!(data->x_max = (int*)ft_memalloc(sizeof(int) * data->y_max)))
 		return (0);
+	ft_simple_printf("y_max : '%d'\nPARSER\n", data->y_max);
 	if (data->fd_2 > 0)
 	{
 		while (get_next_line(data->fd_2, &line))
 		{
-			if (y < (data->y_max) && !(ft_parser_line(line, data, ++y)))
+			if (++y < (data->y_max) && !(ft_parser_line(line, data, y)))
 				return (0);
 		}
 		free(line);
@@ -103,8 +104,6 @@ int		ft_parser_line(char *line, t_data *data, int y)
 	if (!(tmp = ft_strsplit(line, ' ')))
 		return (0);
 	data->x_max[y] = ft_strtablen(tmp);
-	data->x_allmax = (!y || data->x_allmax < data->x_max[y]) ? data->x_max[y] :
-	data->x_allmax;
 	if (!(data->tab[y] = (int*)ft_memalloc(sizeof(int) * data->x_max[y])))
 		return (0);
 	while (++x < data->x_max[y])
@@ -113,7 +112,7 @@ int		ft_parser_line(char *line, t_data *data, int y)
 		{
 			free(data->x_max);
 			free(data->tab);
-			return (0);
+			ft_error("bad values\n", NULL);
 		}
 		data->tab[y][x] = ft_atoi(tmp[x]);
 	}

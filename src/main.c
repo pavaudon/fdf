@@ -48,6 +48,9 @@ int	ft_init_data(t_data *data)
 	data->zoom = 20;
 	data->tab = NULL;
 	data->file = NULL;
+	data->depth = 0;
+	data->xmove = 0;
+	data->ymove = 0;
 	if (!(data->bres = (t_bres*)ft_memalloc(sizeof(t_bres))))
 		return (0);
 	return (1);

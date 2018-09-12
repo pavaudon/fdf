@@ -43,11 +43,13 @@ typedef struct		s_data
 	int			fd_2;
 	int     y_max;
   int     *x_max;
-	int 		x_allmax;
 	int			bpp;
 	int			sl;
 	int			ed;
 	int			zoom;
+	int 		depth;
+	int 		xmove;
+	int 		ymove;
 }					t_data;
 
 int			ft_read_file(t_data *data);
