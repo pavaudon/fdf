@@ -91,9 +91,9 @@ int			ft_parser_line(char *line, t_data *data, int y)
 	{
 		if (!(ft_is_nb(tmp[x])))
 		{
-			free(data->x_max);
 			free(data->tab);
-			ft_error("bad values\n", NULL);
+			free(data->x_max);
+			ft_error("bad values\n", NULL, data);
 		}
 		data->tab[y][x] = ft_atoi(tmp[x]);
 	}

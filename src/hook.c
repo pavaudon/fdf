@@ -12,10 +12,9 @@
 
 #include "fdf.h"
 
-int		windows_exit(void)
+int		windows_exit(t_data *data)
 {
-	ft_simple_printf("Bybye\n");
-	exit(0);
+	ft_error("BYBYE", NULL, data);
 	return (0);
 }
 
@@ -70,13 +69,10 @@ void	ft_move(int key, t_data *data)
 int		ft_key(int key, t_data *data)
 {
 	if (key == 53)
-	{
-		ft_simple_printf("esc\n");
-		exit(0);
-	}
-	else if (key == 37 && data->data_img)
+		windows_exit(data);
+	else if (key == 37)
 		which_draw(data, 1);
-	else if (key == 35 && data->data_img)
+	else if (key == 35)
 		which_draw(data, 2);
 	else if (key == 69 || key == 78 || key == 24 || key == 27)
 		ft_depth_zoom(key, data);

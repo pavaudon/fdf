@@ -6,7 +6,7 @@
 /*   By: pavaudon <lalicornede42@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/07 18:47:28 by pavaudon          #+#    #+#             */
-/*   Updated: 2018/09/13 12:32:10 by pavaudon         ###   ########.fr       */
+/*   Updated: 2018/09/13 19:35:35 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct		s_data
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*img_ptr;
 	char		*data_img;
 	t_bres		*bres;
 	int			**tab;
@@ -55,11 +54,11 @@ void				ft_new_image(t_data *data);
 int					ft_parser_line(char *line, t_data *data, int y);
 void				put_text(t_data *data);
 void				tracer_line(t_data *data);
-int					windows_exit();
+int					windows_exit(t_data *data);
 int					ft_key(int key, t_data *data);
 void				ft_bres(t_data *data, int x2, int y2);
 void				which_draw(t_data *data, int lines);
-void				ft_error(char *error, char *arg);
+void				ft_error(char *error, char *arg, t_data *data);
 int					ft_init_data(t_data *data);
 int					ft_init_mlx(t_data *data, char *argv);
 void				ft_freetab(char **tab);

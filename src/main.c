@@ -6,14 +6,20 @@
 /*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 16:20:29 by pavaudon          #+#    #+#             */
-/*   Updated: 2018/09/13 12:05:37 by pavaudon         ###   ########.fr       */
+/*   Updated: 2018/09/13 19:34:53 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	ft_error(char *error, char *arg)
+void	ft_error(char *error, char *arg, t_data *data)
 {
+	if (data)
+	{
+		if (data->bres)
+			free(data->bres);
+		free(data);
+	}
 	if (arg)
 		ft_simple_printf("BAD FILE [%s]\n", arg);
 	else
@@ -21,10 +27,10 @@ void	ft_error(char *error, char *arg)
 	exit(1);
 }
 
-int		check_file_name(char *arg)
+int		check_file_name(char *arg, t_data *data)
 {
 	if (!ft_strstr(arg, ".fdf\0"))
-		ft_error(NULL, arg);
+		ft_error(NULL, arg, data);
 	return (1);
 }
 
@@ -51,7 +57,7 @@ int		main(int argc, char **argv)
 		return (0);
 	if (argc == 2)
 	{
-		if ((check_file_name(argv[1]) &&
+		if ((check_file_name(argv[1], data) &&
 					((data->fd_1 = open(argv[1], O_CLOEXEC)) > 0) &&
 					(data->fd_2 = open(argv[1], O_CLOEXEC)) > 0) &&
 					ft_read_file(data))
@@ -59,14 +65,13 @@ int		main(int argc, char **argv)
 			if (!ft_init_mlx(data, argv[1]))
 				return (0);
 			mlx_key_hook(data->win_ptr, ft_key, data);
-			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, 0);
+			mlx_hook(data->win_ptr, 17, 1L << 17, windows_exit, (void*)data);
 			mlx_loop(data->mlx_ptr);
 		}
 		else
-			ft_error(NULL, argv[1]);
+			ft_error(NULL, argv[1], data);
 	}
 	else
-		ft_error("./fdf [FILE]\n", NULL);
-	//while (1);
+		ft_error("./fdf [FILE]\n", NULL, data);
 	return (0);
 }
