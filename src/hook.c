@@ -47,22 +47,22 @@ void	ft_move(int key, t_data *data)
 {
 	if (key == 124)
 	{
-		data->xmove += (data->xmove < LINE_SIZE) ? 10 : 0;
+		data->xmove += 10;
 		which_draw(data, 1);
 	}
 	else if (key == 123)
 	{
-		data->xmove -= (data->xmove > 1) ? 10 : 0;
+		data->xmove -= 10;
 		which_draw(data, 1);
 	}
 	else if (key == 125)
 	{
-		data->ymove += (data->ymove < COL_SIZE) ? 10 : 0;
+		data->ymove += 10;
 		which_draw(data, 1);
 	}
 	else if (key == 126)
 	{
-		data->ymove -= (data->ymove > 1) ? 10 : 0;
+		data->ymove -= 10;
 		which_draw(data, 1);
 	}
 }
@@ -80,7 +80,7 @@ int		ft_key(int key, t_data *data)
 		which_draw(data, 2);
 	else if (key == 69 || key == 78 || key == 24 || key == 27)
 		ft_depth_zoom(key, data);
-	else if (key >= 124 && key <= 126)
+	else if (key >= 123 && key <= 126)
 		ft_move(key, data);
 	return (0);
 }

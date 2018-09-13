@@ -31,7 +31,7 @@ INC			=	./includes/
 INCLIB		=	./libft/includes/
 INCS		=	$(INC) $(INCLIB)
 
-CC			=	gcc -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit -g3 -fsanitize=address
+CC			=	gcc -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
 
 CFLAGS		=	-Wextra -Wall -I$(INC) -I$(INCLIB) -I /usr/local/include
 

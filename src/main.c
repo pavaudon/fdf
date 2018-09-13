@@ -67,5 +67,6 @@ int		main(int argc, char **argv)
 	}
 	else
 		ft_error("./fdf [FILE]\n", NULL);
+	//while (1);
 	return (0);
 }

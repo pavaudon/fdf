@@ -19,7 +19,10 @@ void		ft_y_max(t_data *data)
 
 	y = 0;
 	while (get_next_line(data->fd_1, &line))
+	{
 		y++;
+		free(line);
+	}
 	data->y_max = y;
 	free(line);
 	data->fd_1 = close(data->fd_1);
@@ -42,6 +45,7 @@ int			ft_read_file(t_data *data)
 		{
 			if (++y < (data->y_max) && !(ft_parser_line(line, data, y)))
 				return (0);
+			free(line);
 		}
 		free(line);
 	}
@@ -64,20 +68,11 @@ int			ft_strtablen(char **tab)
 
 int			ft_is_nb(char *str)
 {
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_isdigit(str[i]) || (str[i] == '-' && i == 0))
-		{
-			i++;
-			while (str[i] && (ft_isdigit(str[i])))
-				i++;
-		}
-		else
-			return (0);
-	}
+	if (ft_isdigit(str[0]) || (str[0] == '-' && ft_strlen(str) > 1
+	&& ft_isdigit(str[1])))
+		return (1);
+	else
+		return (0);
 	return (1);
 }
 
@@ -94,7 +89,7 @@ int			ft_parser_line(char *line, t_data *data, int y)
 		return (0);
 	while (++x < data->x_max[y])
 	{
-		if (!(ft_is_nb(tmp[x]) || !ft_atoi(tmp[x])))
+		if (!(ft_is_nb(tmp[x])))
 		{
 			free(data->x_max);
 			free(data->tab);
