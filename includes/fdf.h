@@ -6,7 +6,7 @@
 /*   By: pavaudon <lalicornede42@gmail.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/07 18:47:28 by pavaudon          #+#    #+#             */
-/*   Updated: 2018/08/07 18:47:30 by pavaudon         ###   ########.fr       */
+/*   Updated: 2018/09/13 12:32:10 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "libft.h"
 # include <fcntl.h>
 
-#define COL_SIZE 1000
-#define LINE_SIZE 1000
+# define COL_SIZE 1000
+# define LINE_SIZE 1000
 
 typedef struct		s_bres
 {
@@ -26,43 +26,43 @@ typedef struct		s_bres
 	int			dy;
 	int			xincr;
 	int			yincr;
-	double	error;
+	double		error;
+	int			x1;
+	int			y1;
 }					t_bres;
-
 
 typedef struct		s_data
 {
 	void		*mlx_ptr;
-  void		*win_ptr;
-  void		*img_ptr;
-  char		*data_img;
-	t_bres	*bres;
+	void		*win_ptr;
+	void		*img_ptr;
+	char		*data_img;
+	t_bres		*bres;
 	int			**tab;
 	char		*file;
 	int			fd_1;
 	int			fd_2;
-	int     y_max;
-  int     *x_max;
-	int			bpp;
-	int			sl;
-	int			ed;
+	int			y_max;
+	int			*x_max;
 	int			zoom;
-	int 		depth;
-	int 		xmove;
-	int 		ymove;
+	int			depth;
+	int			xmove;
+	int			ymove;
 }					t_data;
 
-int			ft_read_file(t_data *data);
-void		ft_new_image(t_data *data);
-int			ft_parser_line(char *line, t_data *data, int y);
-void		put_text(t_data *data);
-void		tracer_line(t_data *data);
-int 		windows_exit();
-int			ft_key(int key, t_data *data);
-void 		ft_bres(t_data *data, int x1, int y1, int x2, int y2);
-//void 		put_background(t_data *data, int lines);
-void 		which_draw(t_data *data, int lines);
-void 		print_pixel(t_data *data, int x, int y, int color);
-void 		ft_error(char *error, char *arg);
+int					ft_read_file(t_data *data);
+void				ft_new_image(t_data *data);
+int					ft_parser_line(char *line, t_data *data, int y);
+void				put_text(t_data *data);
+void				tracer_line(t_data *data);
+int					windows_exit();
+int					ft_key(int key, t_data *data);
+void				ft_bres(t_data *data, int x2, int y2);
+void				which_draw(t_data *data, int lines);
+void				ft_error(char *error, char *arg);
+int					ft_init_data(t_data *data);
+int					ft_init_mlx(t_data *data, char *argv);
+void				ft_freetab(char **tab);
+char				*del_path_file(char *file);
 
 #endif

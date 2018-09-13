@@ -6,7 +6,7 @@
 /*   By: pavaudon <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 16:43:40 by pavaudon          #+#    #+#             */
-/*   Updated: 2018/08/31 16:43:41 by pavaudon         ###   ########.fr       */
+/*   Updated: 2018/09/13 12:21:50 by pavaudon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		ft_y_max(t_data *data)
 	data->fd_1 = close(data->fd_1);
 }
 
-int		ft_read_file(t_data *data)
+int			ft_read_file(t_data *data)
 {
 	int		y;
 	char	*line;
@@ -36,7 +36,6 @@ int		ft_read_file(t_data *data)
 		return (0);
 	if (!(data->x_max = (int*)ft_memalloc(sizeof(int) * data->y_max)))
 		return (0);
-	ft_simple_printf("y_max : '%d'\nPARSER\n", data->y_max);
 	if (data->fd_2 > 0)
 	{
 		while (get_next_line(data->fd_2, &line))
@@ -53,7 +52,7 @@ int		ft_read_file(t_data *data)
 	return (1);
 }
 
-int		ft_strtablen(char **tab)
+int			ft_strtablen(char **tab)
 {
 	int i;
 
@@ -63,7 +62,7 @@ int		ft_strtablen(char **tab)
 	return (i);
 }
 
-int		ft_is_nb(char *str)
+int			ft_is_nb(char *str)
 {
 	int i;
 
@@ -82,23 +81,10 @@ int		ft_is_nb(char *str)
 	return (1);
 }
 
-void	ft_freetab(char **tab)
+int			ft_parser_line(char *line, t_data *data, int y)
 {
-		int i;
-
-		i = 0;
-		while (tab[i])
-		{
-			free(tab[i]);
-			i++;
-		}
-		free(tab);
-}
-
-int		ft_parser_line(char *line, t_data *data, int y)
-{
-	int x;
-	char **tmp;
+	int		x;
+	char	**tmp;
 
 	x = -1;
 	if (!(tmp = ft_strsplit(line, ' ')))

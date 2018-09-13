@@ -20,7 +20,8 @@ SRC			=	main.c\
 					parser.c\
 					hook.c\
 					print.c\
-					bres.c
+					bres.c\
+					init.c
 
 OBJ_DIR	=	./obj/
 OBJS		=	$(addprefix $(OBJ_DIR),$(OBJ))
